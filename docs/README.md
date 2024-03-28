@@ -19,7 +19,7 @@ Esta pasta contém diversos tipos de documentação relacionada ao projeto, incl
 5. [**Contratos e Acordos**](#documentação-do-projeto):
    - Contratos ou acordos relevantes para o projeto, como contratos de licenciamento, contratos de serviço ou qualquer outra documentação legal relacionada ao projeto.
 
-6. [**Comunicações**](#documentação-do-projeto):
+6. [**Comunicações**](https://github.com/Framks/gestao-de-feedback-academico/blob/docs/docs/COMUNICACAO.md):
    - E-mails, atas de reuniões ou outras comunicações importantes relacionadas ao projeto.
 
 7. [**Especificações**](#documentação-do-projeto):
