@@ -22,6 +22,6 @@ Esta pasta contém diversos tipos de documentação relacionada ao projeto, incl
 6. [**Comunicações**](https://github.com/Framks/gestao-de-feedback-academico/blob/docs/docs/COMUNICACAO.md):
    - E-mails, atas de reuniões ou outras comunicações importantes relacionadas ao projeto.
 
-7. [**Especificações**](#documentação-do-projeto):
+7. [**Especificações**](https://github.com/Framks/gestao-de-feedback-academico/blob/docs/docs/Especificacoes.md):
    - Especificações técnicas ou funcionais detalhadas que descrevem os requisitos e o comportamento esperado do projeto.
 
