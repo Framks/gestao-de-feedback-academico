@@ -7,7 +7,7 @@ Esta pasta contém diversos tipos de documentação relacionada ao projeto, incl
 1. [**Documentação do Projeto**](#documentação-do-projeto): 
    - Inclui documentos explicativos sobre o propósito do projeto, sua arquitetura, suas dependências, como configurar e executar o projeto, e outras informações relevantes.
 
-2. [**Documentação Técnica**](#documentação-do-projeto):
+2. [**Documentação Técnica**](https://github.com/Framks/gestao-de-feedback-academico/blob/docs/docs/diagramas/README.md):
    - Detalhes técnicos sobre o funcionamento interno do projeto, como diagramas de classes, diagramas de fluxo, ou qualquer outra informação técnica útil para os desenvolvedores.
 
 3. [**Manuais do Usuário**](#documentação-do-projeto):
