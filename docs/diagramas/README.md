@@ -10,6 +10,14 @@ O diagrama de classe fornece uma visão geral das entidades e relacionamentos no
 
   > **Nota:** Este diagrama pode ser sujeito a alterações conforme o projeto avança e novas necessidades surgem.
 
+### Arquitetura do sistema
+
+Estamos desenvolvendo uma aplicação web que utiliza uma arquitetura de microsserviços. O front-end é implementado em React e será executado em um container Docker separado. O back-end é desenvolvido em Java, utilizando o framework Spring Boot, e também será executado em um container distinto. O banco de dados escolhido para a aplicação é o PostgreSQL, que será utilizado para armazenar os dados. Essa separação facilita a escalabilidade, manutenção e implantação da aplicação, além de permitir uma clara divisão de responsabilidades entre a interface de usuário e a lógica de negócio.
+
+- [Link para o Diagrama da Arquitetura do sistema](https://drive.google.com/file/d/1aA-7tzJ8oJapOLWOq9kWKD3yIyrNa6Ze/view?usp=drive_link)
+  
+  > **Nota:** Este diagrama pode ser sujeito a alterações conforme o projeto avança e novas necessidades surgem.
+
 ### Diagramas de Entidade
 
 Aqui estão os diagramas que representam diferentes tipos de entidades no sistema:
