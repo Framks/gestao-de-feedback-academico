@@ -3,10 +3,9 @@ package com.gestao.feedback_academico.domain.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "professores")
@@ -19,4 +18,8 @@ public class Professor extends User {
     @Id
     private Long matricula;
 
+    public Professor(Long matricula, String login, String senha, String primeiroNome, String segundoNome, UserRole role) {
+        super(login, senha, primeiroNome, segundoNome, role);
+        this.matricula = matricula;
+    }
 }

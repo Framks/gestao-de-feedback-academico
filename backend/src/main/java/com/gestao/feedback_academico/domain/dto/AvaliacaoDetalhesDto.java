@@ -1,4 +1,4 @@
-package com.gestao.feedback_academico.domain.dto.response;
+package com.gestao.feedback_academico.domain.dto;
 
 import jakarta.validation.constraints.*;
 

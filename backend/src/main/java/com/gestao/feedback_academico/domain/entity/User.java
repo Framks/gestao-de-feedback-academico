@@ -12,11 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -69,6 +65,13 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private UserRole role;
 
+    public User(String login, String senha, String primeiroNome, String segundoNome, UserRole role) {
+        this.login = login;
+        this.senha = senha;
+        this.primeiroNome = primeiroNome;
+        this.segundoNome = segundoNome;
+        this.role = role;
+    }
 
     /**
      * Retorna as autoridades concedidas ao usuário com base no seu papel.
