@@ -2,8 +2,8 @@ package com.gestao.feedback_academico.domain.usecase;
 
 import com.gestao.feedback_academico.domain.dto.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Interface para operações de gerenciamento acadêmico relacionadas a atividades, turmas, aulas e avaliações.
@@ -70,18 +70,18 @@ public interface ProfessorService {
      * Apaga uma aula específica em uma turma.
      *
      * @param turmaId O ID da turma onde a aula foi realizada.
-     * @param dataOcorreu A data e hora em que a aula ocorreu.
+     * @param idAula iD da aula.
      */
-    void apagarAula(IdTurmaDto turmaId, LocalDateTime dataOcorreu);
+    void apagarAula(IdTurmaDto turmaId, UUID idAula);
 
     /**
      * Recupera todas as avaliações associadas a uma aula específica em uma turma.
      *
      * @param turmaId O ID da turma onde a aula foi realizada.
-     * @param dataOcorreu A data e hora em que a aula ocorreu.
+     * @param idAula iD da aula.
      * @return Uma lista de {@link AvaliacaoDetalhesDto} contendo os detalhes de todas as avaliações associadas à aula.
      */
-    List<AvaliacaoDetalhesDto> getAvaliacoesByAula(IdTurmaDto turmaId, LocalDateTime dataOcorreu);
+    List<AvaliacaoDetalhesDto> getAvaliacoesByAula(IdTurmaDto turmaId, UUID idAula);
 
     /**
      * Recupera todas as avaliações associadas a uma atividade específica em uma turma.
@@ -109,4 +109,12 @@ public interface ProfessorService {
      * @return Uma lista de {@link AvaliacaoDetalhesDto} contendo os detalhes de todas as avaliações de atividades associadas ao aluno.
      */
     List<AvaliacaoDetalhesDto> getAvaliacoesAtividadesByAluno(IdTurmaDto turmaId, Long matricula);
+
+    /**
+     * Cria um novo aluno com as informações fornecidas.
+     *
+     * @param novoAlunoDto DTO contendo as informações do novo aluno a ser criado.
+     * @return {@link AlunoDetalhesDto} contendo os detalhes do aluno criado.
+     */
+    AlunoDetalhesDto criarNovoAluno(NovoAlunoDto novoAlunoDto);
 }

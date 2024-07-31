@@ -1,14 +1,7 @@
 package com.gestao.feedback_academico.controller;
 
 
-import com.gestao.feedback_academico.domain.dto.AtividadeDetalhesDto;
-import com.gestao.feedback_academico.domain.dto.AulaDetalhesDto;
-import com.gestao.feedback_academico.domain.dto.AvaliacaoDetalhesDto;
-import com.gestao.feedback_academico.domain.dto.IdTurmaDto;
-import com.gestao.feedback_academico.domain.dto.NovaAtividadeDto;
-import com.gestao.feedback_academico.domain.dto.NovaAulaDto;
-import com.gestao.feedback_academico.domain.dto.NovaTurmaDto;
-import com.gestao.feedback_academico.domain.dto.TurmaDetalhesDto;
+import com.gestao.feedback_academico.domain.dto.*;
 import com.gestao.feedback_academico.domain.usecase.ProfessorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -20,16 +13,18 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Validated
 @RestController
+@AllArgsConstructor
 @RequestMapping("/professores")
 public class ProfessorController {
 
@@ -194,7 +189,7 @@ public class ProfessorController {
      * Apaga uma aula específica em uma turma.
      *
      * @param idTurma DTO contendo o ID da turma onde a aula foi realizada.
-     * @param dataOcorreu Data e hora em que a aula ocorreu.
+     * @param idAula ID da aula.
      * @return Resposta indicando se a operação foi bem-sucedida.
      */
     @Operation(
@@ -207,13 +202,13 @@ public class ProfessorController {
             @ApiResponse(responseCode = "404", description = "Aula ou turma não encontrada"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-    @DeleteMapping("/turmas/aulas/{dataOcorreu}")
+    @DeleteMapping("/turmas/aulas/{idAula}")
     public ResponseEntity<Void> apagarAula(
             @Parameter(description = "DTO contendo o ID da turma onde a aula foi realizada.", required = true)
             @Valid @RequestBody IdTurmaDto idTurma,
-            @Parameter(description = "Data e hora em que a aula ocorreu", required = true)
-            @PathVariable LocalDateTime dataOcorreu) {
-        professorService.apagarAula(idTurma, dataOcorreu);
+            @Parameter(description = "ID da aula a ser apagada", required = true)
+            @PathVariable UUID idAula) {
+        professorService.apagarAula(idTurma, idAula);
         return ResponseEntity.noContent().build();
     }
 
@@ -221,7 +216,7 @@ public class ProfessorController {
      * Recupera todas as avaliações associadas a uma aula específica em uma turma.
      *
      * @param idTurma DTO contendo o ID da turma onde a aula foi realizada.
-     * @param dataOcorreu Data e hora em que a aula ocorreu.
+     * @param idAula ID da aula.
      * @return Uma lista de {@link AvaliacaoDetalhesDto} contendo os detalhes de todas as avaliações associadas à aula.
      */
     @Operation(
@@ -234,13 +229,13 @@ public class ProfessorController {
             @ApiResponse(responseCode = "404", description = "Aula ou turma não encontrada"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-    @GetMapping("/turmas/aulas/{dataOcorreu}/avaliacoes")
+    @GetMapping("/turmas/aulas/{idAula}/avaliacoes")
     public ResponseEntity<List<AvaliacaoDetalhesDto>> getAvaliacoesByAula(
             @Parameter(description = "DTO contendo o ID da turma onde a aula foi realizada.", required = true)
             @Valid @RequestBody IdTurmaDto idTurma,
-            @Parameter(description = "Data e hora em que a aula ocorreu", required = true)
-            @PathVariable LocalDateTime dataOcorreu) {
-        List<AvaliacaoDetalhesDto> avaliacoes = professorService.getAvaliacoesByAula(idTurma, dataOcorreu);
+            @Parameter(description = "ID da aula para a qual as avaliações devem ser recuperadas", required = true)
+            @PathVariable UUID idAula) {
+        List<AvaliacaoDetalhesDto> avaliacoes = professorService.getAvaliacoesByAula(idTurma, idAula);
         return ResponseEntity.ok(avaliacoes);
     }
 
@@ -325,4 +320,49 @@ public class ProfessorController {
         List<AvaliacaoDetalhesDto> avaliacoes = professorService.getAvaliacoesAtividadesByAluno(idTurma, matricula);
         return ResponseEntity.ok(avaliacoes);
     }
+
+    /**
+     * Cria um novo aluno com as informações fornecidas.
+     *
+     * @param novoAlunoDto DTO contendo as informações do novo aluno a ser criado.
+     * @return O DTO contendo os detalhes do aluno criado.
+     */
+    @Operation(
+            summary = "Criar novo aluno",
+            description = "Endpoint para criar um novo aluno com as informações fornecidas.",
+            method = "POST"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Aluno criado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    @PostMapping("/alunos")
+    public ResponseEntity<AlunoDetalhesDto> criarNovoAluno(
+            @Parameter(description = "DTO contendo as informações do novo aluno a ser criado.", required = true)
+            @Valid @RequestBody NovoAlunoDto novoAlunoDto) {
+        AlunoDetalhesDto alunoCriado = professorService.criarNovoAluno(novoAlunoDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(alunoCriado);
+    }
+
+    /**
+     * Recupera todas as atividades disponíveis.
+     *
+     * @return Uma lista de {@link AtividadeDetalhesDto} contendo os detalhes de todas as atividades disponíveis.
+     */
+    @Operation(
+            summary = "Recuperar todas as atividades disponíveis",
+            description = "Endpoint para recuperar todas as atividades disponíveis.",
+            method = "GET"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Atividades recuperadas com sucesso"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    @GetMapping("/atividades")
+    public ResponseEntity<List<AtividadeDetalhesDto>> getAllAtividades() {
+        List<AtividadeDetalhesDto> atividades = professorService.getAllAtividades();
+        return ResponseEntity.ok(atividades);
+    }
+
 }

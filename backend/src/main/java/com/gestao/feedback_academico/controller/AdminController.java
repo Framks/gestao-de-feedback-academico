@@ -90,7 +90,7 @@ public class AdminController {
     /**
      * Cadastra uma nova atividade.
      *
-     * @param atividadeCadastroDto DTO contendo os dados da nova atividade.
+     * @param novaAtividadeDto DTO contendo os dados da nova atividade.
      * @return Detalhes da atividade cadastrada.
      */
     @Operation(
@@ -106,9 +106,9 @@ public class AdminController {
     @PostMapping("/atividades")
     public ResponseEntity<AtividadeDetalhesDto> cadastrarAtividade(
             @Parameter(description = "DTO contendo os dados da nova atividade", required = true)
-            @Valid @RequestBody NovaAtividadeDto atividadeCadastroDto
+            @Valid @RequestBody NovaAtividadeDto novaAtividadeDto
     ) {
-        AtividadeDetalhesDto atividadeCriada = adminService.cadastrarAtividade(atividadeCadastroDto);
+        AtividadeDetalhesDto atividadeCriada = adminService.cadastrarAtividade(novaAtividadeDto);
         return new ResponseEntity<>(atividadeCriada, HttpStatus.CREATED);
     }
 
