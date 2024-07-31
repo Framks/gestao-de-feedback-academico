@@ -1,19 +1,23 @@
 package com.gestao.feedback_academico.controller;
 
-import com.gestao.feedback_academico.controller.log_messages.AdminLogMessages;
-import com.gestao.feedback_academico.domain.dto.request.NovaAtividadeDto;
-import com.gestao.feedback_academico.domain.dto.request.NovoAdminDto;
-import com.gestao.feedback_academico.domain.dto.request.NovoProfessorDto;
-import com.gestao.feedback_academico.domain.dto.response.AdminDetalhesDto;
-import com.gestao.feedback_academico.domain.dto.response.ProfessorDetalhesDto;
-import com.gestao.feedback_academico.domain.dto.response.UsuarioDetalhesDto;
+import com.gestao.feedback_academico.domain.usecase.AdminService;
+import com.gestao.feedback_academico.domain.dto.NovaAtividadeDto;
+import com.gestao.feedback_academico.domain.dto.NovoAdminDto;
+import com.gestao.feedback_academico.domain.dto.NovoProfessorDto;
+import com.gestao.feedback_academico.domain.dto.AdminDetalhesDto;
+import com.gestao.feedback_academico.domain.dto.AtividadeDetalhesDto;
+import com.gestao.feedback_academico.domain.dto.ProfessorDetalhesDto;
+import com.gestao.feedback_academico.domain.dto.UsuarioDetalhesDto;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.extern.slf4j.Slf4j;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,157 +28,204 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
-@Slf4j
+@AllArgsConstructor
 public class AdminController {
+
+    private AdminService adminService;
 
     /**
      * Cria um novo professor.
      *
-     * @param novoProfessorDto DTO contendo os detalhes do novo professor a ser criado.
-     * @return Status 201 Created se o professor for criado com sucesso.
+     * @param novoProfessorDto DTO contendo os dados do novo professor.
+     * @return Detalhes do professor criado.
      */
-    @Operation(summary = "Criar novo professor", description = "Endpoint para criar um novo professor.")
+    @Operation(
+            summary = "Criar novo professor",
+            description = "Endpoint para criar um novo professor.",
+            method = "POST"
+    )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Professor criado com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Dados de entrada inválidos"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/professores")
-    public ResponseEntity<Void> criarProfessor(@Valid @RequestBody NovoProfessorDto novoProfessorDto) {
-        log.info(AdminLogMessages.PROFESSOR_CRIADO.getMessage(), novoProfessorDto.login());
-        // Implementar a lógica para criar um professor
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<ProfessorDetalhesDto> criarProfessor(
+            @Parameter(description = "DTO contendo os dados do novo professor", required = true)
+            @Valid @RequestBody NovoProfessorDto novoProfessorDto
+    ) {
+        ProfessorDetalhesDto professorCriado = adminService.criarProfessor(novoProfessorDto);
+        return new ResponseEntity<>(professorCriado, HttpStatus.CREATED);
     }
 
     /**
      * Cria um novo admin.
      *
-     * @param novoAdminDto DTO contendo os detalhes do novo admin a ser criado.
-     * @return Status 201 Created se o admin for criado com sucesso.
+     * @param novoAdminDto DTO contendo os dados do novo admin.
+     * @return Detalhes do admin criado.
      */
-    @Operation(summary = "Criar novo admin", description = "Endpoint para criar um novo admin.")
+    @Operation(
+            summary = "Criar novo admin",
+            description = "Endpoint para criar um novo admin.",
+            method = "POST"
+    )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Admin criado com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Dados de entrada inválidos"),
+            @ApiResponse(responseCode = "400", description = "Dados de entrada inválidos, por exemplo, campos obrigatórios ausentes"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/admins")
-    public ResponseEntity<Void> criarAdmin(@Valid @RequestBody NovoAdminDto novoAdminDto) {
-        log.info(AdminLogMessages.ADMIN_CRIADO.getMessage(), novoAdminDto.login());
-        // Implementar a lógica para criar um admin
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<AdminDetalhesDto> criarAdmin(
+            @Parameter(description = "DTO contendo os dados do novo admin", required = true)
+            @Valid @RequestBody NovoAdminDto novoAdminDto
+    ) {
+        AdminDetalhesDto adminCriado = adminService.criarAdmin(novoAdminDto);
+        return new ResponseEntity<>(adminCriado, HttpStatus.CREATED);
     }
 
     /**
      * Cadastra uma nova atividade.
      *
-     * @param atividadeCadastroDto DTO contendo os detalhes da nova atividade a ser cadastrada.
-     * @return Status 201 Created se a atividade for cadastrada com sucesso.
+     * @param atividadeCadastroDto DTO contendo os dados da nova atividade.
+     * @return Detalhes da atividade cadastrada.
      */
-    @Operation(summary = "Cadastrar nova atividade", description = "Endpoint para cadastrar uma nova atividade.")
+    @Operation(
+            summary = "Cadastrar nova atividade",
+            description = "Endpoint para cadastrar uma nova atividade.",
+            method = "POST"
+    )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Atividade cadastrada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Dados de entrada inválidos"),
+            @ApiResponse(responseCode = "400", description = "Dados de entrada inválidos, por exemplo, campos obrigatórios ausentes"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/atividades")
-    public ResponseEntity<Void> cadastrarAtividade(@Valid @RequestBody NovaAtividadeDto atividadeCadastroDto) {
-        log.info(AdminLogMessages.ATIVIDADE_CADASTRADA.getMessage(), atividadeCadastroDto.nome());
-        // Implementar a lógica para cadastrar uma atividade
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<AtividadeDetalhesDto> cadastrarAtividade(
+            @Parameter(description = "DTO contendo os dados da nova atividade", required = true)
+            @Valid @RequestBody NovaAtividadeDto atividadeCadastroDto
+    ) {
+        AtividadeDetalhesDto atividadeCriada = adminService.cadastrarAtividade(atividadeCadastroDto);
+        return new ResponseEntity<>(atividadeCriada, HttpStatus.CREATED);
     }
 
     /**
-     * Lista todos os usuários.
+     * Lista todos os usuários cadastrados.
      *
-     * @return Uma lista de {@link UsuarioDetalhesDto} contendo os detalhes de todos os usuários.
+     * @return Lista de detalhes dos usuários.
      */
-    @Operation(summary = "Listar todos os usuários", description = "Endpoint para listar todos os usuários cadastrados.")
+    @Operation(
+            summary = "Listar todos os usuários",
+            description = "Endpoint para listar todos os usuários cadastrados.",
+            method = "GET"
+    )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Usuários listados com sucesso"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping("/usuarios")
     public ResponseEntity<List<UsuarioDetalhesDto>> listarUsuarios() {
-        log.info(AdminLogMessages.USUARIOS_LISTADOS.getMessage());
-        List<UsuarioDetalhesDto> usuarios = new ArrayList<>();
-        // Implementar a lógica para listar todos os usuários
+        List<UsuarioDetalhesDto> usuarios = adminService.listarUsuarios();
         return new ResponseEntity<>(usuarios, HttpStatus.OK);
     }
 
     /**
-     * Apaga um usuário específico.
+     * Apaga um usuário específico pelo login.
      *
-     * @param usuarioId O ID do usuário a ser apagado.
-     * @return Status 204 No Content se o usuário for apagado com sucesso.
+     * @param login Login do usuário a ser apagado.
+     * @return Resposta indicando que a operação foi bem-sucedida.
      */
-    @Operation(summary = "Apagar um usuário", description = "Endpoint para apagar um usuário específico pelo ID.")
+    @Operation(
+            summary = "Apagar um usuário",
+            description = "Endpoint para apagar um usuário específico pelo login.",
+            method = "DELETE"
+    )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Usuário apagado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Usuário não encontrado"),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado, por exemplo, login inexistente"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-    @DeleteMapping("/usuarios/{usuarioId}")
-    public ResponseEntity<Void> apagarUsuario(@PathVariable @NotNull @Positive Long usuarioId) {
-        log.info(AdminLogMessages.USUARIO_APAGADO.getMessage(), usuarioId);
-        // Implementar a lógica para apagar um usuário
+    @DeleteMapping("/usuarios/{login}")
+    public ResponseEntity<Void> apagarUsuario(
+            @Parameter(description = "Login do usuário a ser apagado", required = true)
+            @PathVariable @NotNull String login
+    ) {
+        adminService.apagarUsuario(login);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     /**
      * Lista todos os professores cadastrados.
      *
-     * @return Uma lista de {@link ProfessorDetalhesDto} contendo os detalhes de todos os professores cadastrados.
+     * @return Lista de detalhes dos professores.
      */
-    @Operation(summary = "Listar todos os professores", description = "Endpoint para listar todos os professores cadastrados.")
+    @Operation(
+            summary = "Listar todos os professores",
+            description = "Endpoint para listar todos os professores cadastrados.",
+            method = "GET"
+    )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Professores listados com sucesso"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping("/professores")
     public ResponseEntity<List<ProfessorDetalhesDto>> listarProfessores() {
-        log.info(AdminLogMessages.PROFESSORES_LISTADOS.getMessage());
-        return ResponseEntity.ok(new ArrayList<>());
+        List<ProfessorDetalhesDto> professorDetalhesDtoList = adminService.listarProfessores();
+        return ResponseEntity.ok(professorDetalhesDtoList);
     }
 
     /**
      * Lista todos os admins cadastrados.
      *
-     * @return Uma lista de {@link AdminDetalhesDto} contendo os detalhes de todos os admins cadastrados.
+     * @return Lista de detalhes dos admins.
      */
-    @Operation(summary = "Listar todos os admins", description = "Endpoint para listar todos os admins cadastrados.")
+    @Operation(
+            summary = "Listar todos os admins",
+            description = "Endpoint para listar todos os admins cadastrados.",
+            method = "GET"
+    )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Admins listados com sucesso"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping("/admins")
     public ResponseEntity<List<AdminDetalhesDto>> listarAdmins() {
-        log.info(AdminLogMessages.ADMINS_LISTADOS.getMessage());
-
-        return ResponseEntity.ok(new ArrayList<>());
+        List<AdminDetalhesDto> adminDetalhesDtoList = adminService.listarAdmins();
+        return ResponseEntity.ok(adminDetalhesDtoList);
     }
 
     /**
-     * Obtém os detalhes de um professor específico pela matrícula.
+     * Obtém detalhes de um professor específico pela matrícula.
      *
-     * @param matricula A matrícula do professor a ser consultado.
-     * @return Os detalhes do professor.
+     * @param matricula Matrícula do professor a ser consultado.
+     * @return Detalhes do professor consultado.
      */
-    @Operation(summary = "Obter detalhes de um professor", description = "Endpoint para obter detalhes de um professor específico pela matrícula.")
+    @Operation(
+            summary = "Obter detalhes de um professor",
+            description = "Endpoint para obter detalhes de um professor específico pela matrícula.",
+            method = "GET",
+            parameters = @Parameter(
+                    name = "matricula",
+                    in = ParameterIn.PATH,
+                    description = "Matrícula do professor para obter detalhes",
+                    required = true,
+                    schema = @Schema(type = "integer", format = "int64")
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Detalhes do professor obtidos com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Professor não encontrado"),
+            @ApiResponse(responseCode = "404", description = "Professor não encontrado, por exemplo, matrícula inexistente"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping("/professores/{matricula}")
-    public ResponseEntity<ProfessorDetalhesDto> obterDetalhesProfessor(@PathVariable @NotNull @Positive Long matricula) {
-        log.info(AdminLogMessages.PROFESSOR_DETALHES.getMessage(), matricula);
-
-        return ResponseEntity.ok(null);
+    public ResponseEntity<ProfessorDetalhesDto> obterDetalhesProfessor(
+            @Parameter(description = "Matrícula do professor para obter detalhes", required = true)
+            @PathVariable @NotNull @Positive Long matricula
+    ) {
+        ProfessorDetalhesDto professorDetalhesDto = adminService.obterDetalhesProfessor(matricula);
+        return ResponseEntity.ok(professorDetalhesDto);
     }
 }
