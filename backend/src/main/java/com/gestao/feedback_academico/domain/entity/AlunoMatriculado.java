@@ -8,39 +8,36 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Aula", uniqueConstraints = @UniqueConstraint(columnNames = {"data_ocorreu", "fk_turma"}))
-public class Aula {
+@Table(name = "Aluno_matriculado", uniqueConstraints = @UniqueConstraint(columnNames = {"fk_aluno", "semestre", "ano"}))
+public class AlunoMatriculado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "fk_aluno", nullable = false)
+    private User aluno;
+
+    @ManyToOne
     @JoinColumn(name = "fk_turma", nullable = false)
     private Turma turma;
 
-    @Column(name = "data_ocorreu", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date dataOcorreu;
+    @Column(name = "semestre", nullable = false)
+    private Integer semestre;
 
-    @Column(name = "descricao", length = 300)
-    private String descricao;
+    @Column(name = "ano", nullable = false)
+    private Integer ano;
 }
-
 

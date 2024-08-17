@@ -1,9 +1,10 @@
 package com.gestao.feedback_academico.domain.usecase;
 
+
 import com.gestao.feedback_academico.domain.dto.*;
+import com.gestao.feedback_academico.domain.dto.detalhes.*;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Interface para operações de gerenciamento acadêmico relacionadas a atividades, turmas, aulas e avaliações.
@@ -13,42 +14,42 @@ public interface ProfessorService {
     /**
      * Recupera todas as atividades disponíveis.
      *
-     * @return Uma lista de {@link AtividadeDetalhesDto} contendo os detalhes de todas as atividades disponíveis.
+     * @return Uma lista de {@link DetalhesAtividadeDto} contendo os detalhes de todas as atividades disponíveis.
      */
-    List<AtividadeDetalhesDto> getAllAtividades();
+    List<DetalhesAtividadeDto> getAllAtividades();
 
     /**
      * Recupera todas as aulas de uma turma específica.
      *
      * @param turmaId O ID da turma para a qual as aulas devem ser recuperadas.
-     * @return Uma lista de {@link AulaDetalhesDto} contendo os detalhes de todas as aulas da turma especificada.
+     * @return Uma lista de {@link DetalhesAulaDto} contendo os detalhes de todas as aulas da turma especificada.
      */
-    List<AulaDetalhesDto> getAulasByTurma(IdTurmaDto turmaId);
+    List<DetalhesAulaDto> getAulasByTurma(IdTurmaDto turmaId);
 
     /**
      * Recupera todas as atividades que foram disponibilizadas por um professor em uma turma específica.
      *
      * @param turmaId O ID da turma para a qual as atividades foram disponibilizadas.
-     * @return Uma lista de {@link AtividadeDetalhesDto} contendo os detalhes de todas as atividades disponibilizadas na turma.
+     * @return Uma lista de {@link DetalhesAtividadeDto} contendo os detalhes de todas as atividades disponibilizadas na turma.
      */
-    List<AtividadeDetalhesDto> getAtividadesDisponibilizadas(IdTurmaDto turmaId);
+    List<DetalhesAtividadeDto> getAtividadesDisponibilizadas(IdTurmaDto turmaId);
 
     /**
      * Disponibiliza uma nova atividade para avaliação em uma turma específica.
      *
      * @param turmaId O ID da turma onde a atividade será disponibilizada.
-     * @param novaAtividadeDto DTO contendo os detalhes da nova atividade a ser disponibilizada.
-     * @return {@link AtividadeDetalhesDto} contendo os detalhes da atividade criada.
+     * @param criarAtividadeDto DTO contendo os detalhes da nova atividade a ser disponibilizada.
+     * @return {@link DetalhesAtividadeDto} contendo os detalhes da atividade criada.
      */
-    AtividadeDetalhesDto disponibilizarAtividade(IdTurmaDto turmaId, NovaAtividadeDto novaAtividadeDto);
+    DetalhesAtividadeDto disponibilizarAtividade(IdTurmaDto turmaId, CriarAtividadeDto criarAtividadeDto);
 
     /**
      * Cria uma nova turma.
      *
-     * @param novaTurmaDto DTO contendo os detalhes da nova turma a ser criada.
-     * @return {@link TurmaDetalhesDto} contendo os detalhes da turma criada.
+     * @param criarTurmaDto DTO contendo os detalhes da nova turma a ser criada.
+     * @return {@link DetalhesTurmaDto} contendo os detalhes da turma criada.
      */
-    TurmaDetalhesDto criarTurma(NovaTurmaDto novaTurmaDto);
+    DetalhesTurmaDto criarTurma(CriarTurmaDto criarTurmaDto);
 
     /**
      * Apaga uma turma específica.
@@ -61,10 +62,10 @@ public interface ProfessorService {
      * Cria uma nova aula em uma turma específica.
      *
      * @param turmaId O ID da turma onde a aula será criada.
-     * @param novaAulaDto DTO contendo os detalhes da nova aula a ser criada.
-     * @return {@link AulaDetalhesDto} contendo os detalhes da aula criada.
+     * @param criarAulaDto DTO contendo os detalhes da nova aula a ser criada.
+     * @return {@link DetalhesAulaDto} contendo os detalhes da aula criada.
      */
-    AulaDetalhesDto criarAula(IdTurmaDto turmaId, NovaAulaDto novaAulaDto);
+    DetalhesAulaDto criarAula(IdTurmaDto turmaId, CriarAulaDto criarAulaDto);
 
     /**
      * Apaga uma aula específica em uma turma.
@@ -72,49 +73,49 @@ public interface ProfessorService {
      * @param turmaId O ID da turma onde a aula foi realizada.
      * @param idAula iD da aula.
      */
-    void apagarAula(IdTurmaDto turmaId, UUID idAula);
+    void apagarAula(IdTurmaDto turmaId, Long idAula);
 
     /**
      * Recupera todas as avaliações associadas a uma aula específica em uma turma.
      *
      * @param turmaId O ID da turma onde a aula foi realizada.
      * @param idAula iD da aula.
-     * @return Uma lista de {@link AvaliacaoDetalhesDto} contendo os detalhes de todas as avaliações associadas à aula.
+     * @return Uma lista de {@link DetalhesAvaliacaoAulaAlunoDto} contendo os detalhes de todas as avaliações associadas à aula.
      */
-    List<AvaliacaoDetalhesDto> getAvaliacoesByAula(IdTurmaDto turmaId, UUID idAula);
+    List<DetalhesAvaliacaoAulaAlunoDto> getAvaliacoesByAula(IdTurmaDto turmaId, Long idAula);
 
     /**
      * Recupera todas as avaliações associadas a uma atividade específica em uma turma.
      *
      * @param turmaId O ID da turma onde a atividade foi disponibilizada.
      * @param atividadeId O ID da atividade para a qual as avaliações devem ser recuperadas.
-     * @return Uma lista de {@link AvaliacaoDetalhesDto} contendo os detalhes de todas as avaliações associadas à atividade.
+     * @return Uma lista de {@link DetalhesAvaliacaoAtivAlunoDto} contendo os detalhes de todas as avaliações associadas à atividade.
      */
-    List<AvaliacaoDetalhesDto> getAvaliacoesByAtividade(IdTurmaDto turmaId, Long atividadeId);
+    List<DetalhesAvaliacaoAtivAlunoDto> getAvaliacoesByAtividade(IdTurmaDto turmaId, Long atividadeId);
 
     /**
      * Recupera todas as avaliações de aulas associadas a um aluno específico em uma turma.
      *
      * @param turmaId O ID da turma onde o aluno está matriculado.
      * @param matricula A matricula do aluno para o qual as avaliações de aulas devem ser recuperadas.
-     * @return Uma lista de {@link AvaliacaoDetalhesDto} contendo os detalhes de todas as avaliações de aulas associadas ao aluno.
+     * @return Uma lista de {@link DetalhesAvaliacaoAulaAlunoDto} contendo os detalhes de todas as avaliações de aulas associadas ao aluno.
      */
-    List<AvaliacaoDetalhesDto> getAvaliacoesAulasByAluno(IdTurmaDto turmaId, Long matricula);
+    List<DetalhesAvaliacaoAulaAlunoDto> getAvaliacoesAulasByAluno(IdTurmaDto turmaId, Long matricula);
 
     /**
      * Recupera todas as avaliações de atividades associadas a um aluno específico em uma turma.
      *
      * @param turmaId O ID da turma onde o aluno está matriculado.
      * @param matricula A matricula do aluno para o qual as avaliações de atividades devem ser recuperadas.
-     * @return Uma lista de {@link AvaliacaoDetalhesDto} contendo os detalhes de todas as avaliações de atividades associadas ao aluno.
+     * @return Uma lista de {@link DetalhesAvaliacaoAtivAlunoDto} contendo os detalhes de todas as avaliações de atividades associadas ao aluno.
      */
-    List<AvaliacaoDetalhesDto> getAvaliacoesAtividadesByAluno(IdTurmaDto turmaId, Long matricula);
+    List<DetalhesAvaliacaoAtivAlunoDto> getAvaliacoesAtividadesByAluno(IdTurmaDto turmaId, Long matricula);
 
     /**
      * Cria um novo aluno com as informações fornecidas.
      *
-     * @param novoAlunoDto DTO contendo as informações do novo aluno a ser criado.
-     * @return {@link AlunoDetalhesDto} contendo os detalhes do aluno criado.
+     * @param criarUsuarioDto DTO contendo as informações do novo aluno a ser criado.
+     * @return {@link DetalhesUsuarioDto} contendo os detalhes do aluno criado.
      */
-    AlunoDetalhesDto criarNovoAluno(NovoAlunoDto novoAlunoDto);
+    DetalhesUsuarioDto criarNovoAluno(CriarUsuarioDto criarUsuarioDto);
 }

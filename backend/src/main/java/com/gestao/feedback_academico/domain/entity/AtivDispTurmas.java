@@ -18,14 +18,13 @@ import lombok.Setter;
 
 import java.util.Date;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Aula", uniqueConstraints = @UniqueConstraint(columnNames = {"data_ocorreu", "fk_turma"}))
-public class Aula {
+@Table(name = "Ativ_disp_turmas", uniqueConstraints = @UniqueConstraint(columnNames = {"fk_turma", "fk_atividade"}))
+public class AtivDispTurmas {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,12 +34,15 @@ public class Aula {
     @JoinColumn(name = "fk_turma", nullable = false)
     private Turma turma;
 
-    @Column(name = "data_ocorreu", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "fk_atividade", nullable = false)
+    private Atividade atividade;
+
+    @Column(name = "data_disponibilizada", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date dataOcorreu;
+    private Date dataDisponibilizada;
 
-    @Column(name = "descricao", length = 300)
-    private String descricao;
+    @Column(name = "data_limite_avaliacao", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date dataLimiteAvaliacao;
 }
-
-

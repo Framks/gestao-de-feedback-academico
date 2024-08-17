@@ -2,17 +2,22 @@ package com.gestao.feedback_academico.domain.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 public record IdTurmaDto(
-        @NotBlank(message = "O nome do curso não pode estar vazio")
-        String nome,
 
-        @NotBlank(message = "O código do curso não pode estar vazio")
+        @NotBlank(message = "O código da turma não pode ser vazio.")
+        @Size(max = 50, message = "O código da turma não pode ter mais de 50 caracteres.")
         String codigo,
 
-        @NotNull(message = "O semestre não pode ser nulo")
-        @Positive(message = "O semestre deve ser um número positivo")
-        Integer semestre
-) {
-}
+        @NotBlank(message = "A disciplina não pode ser vazia.")
+        @Size(max = 100, message = "A disciplina não pode ter mais de 100 caracteres.")
+        String disciplina,
+
+        @NotNull(message = "O semestre não pode ser nulo.")
+        Integer semestre,
+
+        @NotNull(message = "O ano não pode ser nulo.")
+        Integer ano
+) {}
+

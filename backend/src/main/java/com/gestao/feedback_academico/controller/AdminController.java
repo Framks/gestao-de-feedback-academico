@@ -1,13 +1,10 @@
 package com.gestao.feedback_academico.controller;
 
+import com.gestao.feedback_academico.domain.dto.CriarAtividadeDto;
+import com.gestao.feedback_academico.domain.dto.CriarUsuarioDto;
+import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAtividadeDto;
+import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesUsuarioDto;
 import com.gestao.feedback_academico.domain.usecase.AdminService;
-import com.gestao.feedback_academico.domain.dto.NovaAtividadeDto;
-import com.gestao.feedback_academico.domain.dto.NovoAdminDto;
-import com.gestao.feedback_academico.domain.dto.NovoProfessorDto;
-import com.gestao.feedback_academico.domain.dto.AdminDetalhesDto;
-import com.gestao.feedback_academico.domain.dto.AtividadeDetalhesDto;
-import com.gestao.feedback_academico.domain.dto.ProfessorDetalhesDto;
-import com.gestao.feedback_academico.domain.dto.UsuarioDetalhesDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -40,7 +37,7 @@ public class AdminController {
     /**
      * Cria um novo professor.
      *
-     * @param novoProfessorDto DTO contendo os dados do novo professor.
+     * @param criarUsuarioDto DTO contendo os dados do novo professor.
      * @return Detalhes do professor criado.
      */
     @Operation(
@@ -54,18 +51,18 @@ public class AdminController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/professores")
-    public ResponseEntity<ProfessorDetalhesDto> criarProfessor(
+    public ResponseEntity<DetalhesUsuarioDto> criarProfessor(
             @Parameter(description = "DTO contendo os dados do novo professor", required = true)
-            @Valid @RequestBody NovoProfessorDto novoProfessorDto
+            @Valid @RequestBody CriarUsuarioDto criarUsuarioDto
     ) {
-        ProfessorDetalhesDto professorCriado = adminService.criarProfessor(novoProfessorDto);
+        DetalhesUsuarioDto professorCriado = adminService.criarProfessor(criarUsuarioDto);
         return new ResponseEntity<>(professorCriado, HttpStatus.CREATED);
     }
 
     /**
      * Cria um novo admin.
      *
-     * @param novoAdminDto DTO contendo os dados do novo admin.
+     * @param criarUsuarioDto DTO contendo os dados do novo admin.
      * @return Detalhes do admin criado.
      */
     @Operation(
@@ -79,18 +76,18 @@ public class AdminController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/admins")
-    public ResponseEntity<AdminDetalhesDto> criarAdmin(
+    public ResponseEntity<DetalhesUsuarioDto> criarAdmin(
             @Parameter(description = "DTO contendo os dados do novo admin", required = true)
-            @Valid @RequestBody NovoAdminDto novoAdminDto
+            @Valid @RequestBody CriarUsuarioDto criarUsuarioDto
     ) {
-        AdminDetalhesDto adminCriado = adminService.criarAdmin(novoAdminDto);
+        DetalhesUsuarioDto adminCriado = adminService.criarAdmin(criarUsuarioDto);
         return new ResponseEntity<>(adminCriado, HttpStatus.CREATED);
     }
 
     /**
      * Cadastra uma nova atividade.
      *
-     * @param novaAtividadeDto DTO contendo os dados da nova atividade.
+     * @param criarAtividadeDto DTO contendo os dados da nova atividade.
      * @return Detalhes da atividade cadastrada.
      */
     @Operation(
@@ -104,11 +101,11 @@ public class AdminController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping("/atividades")
-    public ResponseEntity<AtividadeDetalhesDto> cadastrarAtividade(
+    public ResponseEntity<DetalhesAtividadeDto> cadastrarAtividade(
             @Parameter(description = "DTO contendo os dados da nova atividade", required = true)
-            @Valid @RequestBody NovaAtividadeDto novaAtividadeDto
+            @Valid @RequestBody CriarAtividadeDto criarAtividadeDto
     ) {
-        AtividadeDetalhesDto atividadeCriada = adminService.cadastrarAtividade(novaAtividadeDto);
+        DetalhesAtividadeDto atividadeCriada = adminService.cadastrarAtividade(criarAtividadeDto);
         return new ResponseEntity<>(atividadeCriada, HttpStatus.CREATED);
     }
 
@@ -127,8 +124,8 @@ public class AdminController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping("/usuarios")
-    public ResponseEntity<List<UsuarioDetalhesDto>> listarUsuarios() {
-        List<UsuarioDetalhesDto> usuarios = adminService.listarUsuarios();
+    public ResponseEntity<List<DetalhesUsuarioDto>> listarUsuarios() {
+        List<DetalhesUsuarioDto> usuarios = adminService.listarUsuarios();
         return new ResponseEntity<>(usuarios, HttpStatus.OK);
     }
 
@@ -172,9 +169,9 @@ public class AdminController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping("/professores")
-    public ResponseEntity<List<ProfessorDetalhesDto>> listarProfessores() {
-        List<ProfessorDetalhesDto> professorDetalhesDtoList = adminService.listarProfessores();
-        return ResponseEntity.ok(professorDetalhesDtoList);
+    public ResponseEntity<List<DetalhesUsuarioDto>> listarProfessores() {
+        List<DetalhesUsuarioDto> detalhesUsuarioDtoList = adminService.listarProfessores();
+        return ResponseEntity.ok(detalhesUsuarioDtoList);
     }
 
     /**
@@ -192,9 +189,9 @@ public class AdminController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping("/admins")
-    public ResponseEntity<List<AdminDetalhesDto>> listarAdmins() {
-        List<AdminDetalhesDto> adminDetalhesDtoList = adminService.listarAdmins();
-        return ResponseEntity.ok(adminDetalhesDtoList);
+    public ResponseEntity<List<DetalhesUsuarioDto>> listarAdmins() {
+        List<DetalhesUsuarioDto> detalhesUsuarioDtoList = adminService.listarAdmins();
+        return ResponseEntity.ok(detalhesUsuarioDtoList);
     }
 
     /**
@@ -221,11 +218,11 @@ public class AdminController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping("/professores/{matricula}")
-    public ResponseEntity<ProfessorDetalhesDto> obterDetalhesProfessor(
+    public ResponseEntity<DetalhesUsuarioDto> obterDetalhesProfessor(
             @Parameter(description = "Matrícula do professor para obter detalhes", required = true)
             @PathVariable @NotNull @Positive Long matricula
     ) {
-        ProfessorDetalhesDto professorDetalhesDto = adminService.obterDetalhesProfessor(matricula);
-        return ResponseEntity.ok(professorDetalhesDto);
+        DetalhesUsuarioDto detalhesUsuarioDto = adminService.obterDetalhesProfessor(matricula);
+        return ResponseEntity.ok(detalhesUsuarioDto);
     }
 }

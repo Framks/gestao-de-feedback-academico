@@ -1,6 +1,11 @@
 package com.gestao.feedback_academico.domain.usecase;
 
-import com.gestao.feedback_academico.domain.dto.*;
+import com.gestao.feedback_academico.domain.dto.CriarAvaliacaoAtivAlunoDto;
+import com.gestao.feedback_academico.domain.dto.CriarAvaliacaoAulaAlunoDto;
+import com.gestao.feedback_academico.domain.dto.IdTurmaDto;
+import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAtividadeDto;
+import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAulaDto;
+import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAvaliacaoAtivAlunoDto;
 
 import java.util.List;
 
@@ -12,49 +17,49 @@ public interface AlunoService {
     /**
      * Avalia uma atividade.
      *
-     * @param avaliacaoAtividadeDto DTO contendo os detalhes da avaliação da atividade.
+     * @param criarAvaliacaoAtivAlunoDto DTO contendo os detalhes da avaliação da atividade.
      * @return Detalhes da avaliação realizada, incluindo os dados da atividade e a nota atribuída.
      */
-    AvaliacaoAtividadeDto avaliarAtividade(AvaliacaoAtividadeDto avaliacaoAtividadeDto);
+    DetalhesAvaliacaoAtivAlunoDto avaliarAtividade(CriarAvaliacaoAtivAlunoDto criarAvaliacaoAtivAlunoDto);
 
     /**
      * Avalia uma aula.
      *
-     * @param avaliacaoAulaDto DTO contendo os detalhes da avaliação da aula.
+     * @param criarAvaliacaoAulaAlunoDto DTO contendo os detalhes da avaliação da aula.
      * @return Detalhes da avaliação realizada, incluindo os dados da aula e a nota atribuída.
      */
-    AvaliacaoAulaDto avaliarAula(AvaliacaoAulaDto avaliacaoAulaDto);
+    DetalhesAvaliacaoAtivAlunoDto avaliarAula(CriarAvaliacaoAulaAlunoDto criarAvaliacaoAulaAlunoDto);
 
     /**
      * Obtém todas as aulas de uma turma específica.
      *
      * @param idTurma DTO contendo o ID da turma para a qual as aulas devem ser recuperadas.
-     * @return Uma lista de {@link AulaDetalhesDto} contendo os detalhes de todas as aulas da turma especificada.
+     * @return Uma lista de {@link DetalhesAulaDto} contendo os detalhes de todas as aulas da turma especificada.
      */
-    List<AulaDetalhesDto> getAulasByTurma(IdTurmaDto idTurma);
+    List<DetalhesAulaDto> getAulasByTurma(IdTurmaDto idTurma);
 
     /**
      * Obtém todas as aulas que o aluno avaliou.
      *
      * @param matricula A matrícula do aluno para o qual as aulas avaliadas devem ser recuperadas.
-     * @return Uma lista de {@link AulaDetalhesDto} contendo os detalhes de todas as aulas avaliadas pelo aluno.
+     * @return Uma lista de {@link DetalhesAulaDto} contendo os detalhes de todas as aulas avaliadas pelo aluno.
      */
-    List<AulaDetalhesDto> getAulasAvaliadasByAluno(Long matricula);
+    List<DetalhesAulaDto> getAulasAvaliadasByAluno(Long matricula);
 
     /**
      * Obtém todas as atividades de uma turma específica.
      *
      * @param idTurma DTO contendo o ID da turma para a qual as atividades devem ser recuperadas.
-     * @return Uma lista de {@link AtividadeDetalhesDto} contendo os detalhes de todas as atividades da turma especificada.
+     * @return Uma lista de {@link DetalhesAtividadeDto} contendo os detalhes de todas as atividades da turma especificada.
      */
-    List<AtividadeDetalhesDto> getAtividadesByTurma(IdTurmaDto idTurma);
+    List<DetalhesAtividadeDto> getAtividadesByTurma(IdTurmaDto idTurma);
 
     /**
      * Obtém todas as atividades que o aluno avaliou.
      *
      * @param matricula A matrícula do aluno para o qual as atividades avaliadas devem ser recuperadas.
-     * @return Uma lista de {@link AtividadeDetalhesDto} contendo os detalhes de todas as atividades avaliadas pelo aluno.
+     * @return Uma lista de {@link DetalhesAtividadeDto} contendo os detalhes de todas as atividades avaliadas pelo aluno.
      */
-    List<AtividadeDetalhesDto> getAtividadesAvaliadasByAluno(Long matricula);
+    List<DetalhesAtividadeDto> getAtividadesAvaliadasByAluno(Long matricula);
 }
 

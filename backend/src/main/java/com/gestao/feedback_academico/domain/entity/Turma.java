@@ -1,35 +1,47 @@
 package com.gestao.feedback_academico.domain.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 
-@Entity
-@Table(name = "turmas")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "Turma", uniqueConstraints = @UniqueConstraint(columnNames = {"codigo", "disciplina", "semestre", "ano"}))
 public class Turma {
 
-    @EmbeddedId
-    @Column(name = "turma_id")
-    private IdTurma id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Aula> aulas;
+    @ManyToOne
+    @JoinColumn(name = "fk_professor", nullable = false)
+    private User professor;
 
-    @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Atividade> atividades;
+    @Column(name = "codigo", length = 50, nullable = false)
+    private String codigo;
 
+    @Column(name = "disciplina", length = 100, nullable = false)
+    private String disciplina;
+
+    @Column(name = "semestre", nullable = false)
+    private Integer semestre;
+
+    @Column(name = "ano", nullable = false)
+    private Integer ano;
 }
+
+

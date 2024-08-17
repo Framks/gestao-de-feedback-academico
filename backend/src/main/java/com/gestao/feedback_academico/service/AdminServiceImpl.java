@@ -1,36 +1,34 @@
 package com.gestao.feedback_academico.service;
 
+import com.gestao.feedback_academico.domain.dto.CriarAtividadeDto;
+import com.gestao.feedback_academico.domain.dto.CriarUsuarioDto;
+import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAtividadeDto;
+import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesUsuarioDto;
 import com.gestao.feedback_academico.domain.usecase.AdminService;
-import com.gestao.feedback_academico.domain.dto.NovaAtividadeDto;
-import com.gestao.feedback_academico.domain.dto.NovoAdminDto;
-import com.gestao.feedback_academico.domain.dto.NovoProfessorDto;
-import com.gestao.feedback_academico.domain.dto.AdminDetalhesDto;
-import com.gestao.feedback_academico.domain.dto.AtividadeDetalhesDto;
-import com.gestao.feedback_academico.domain.dto.ProfessorDetalhesDto;
-import com.gestao.feedback_academico.domain.dto.UsuarioDetalhesDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class AdminServiceImpl implements AdminService {
+
     @Override
-    public ProfessorDetalhesDto criarProfessor(NovoProfessorDto novoProfessorDto) {
+    public DetalhesUsuarioDto criarProfessor(CriarUsuarioDto criarUsuarioDto) {
         return null;
     }
 
     @Override
-    public AdminDetalhesDto criarAdmin(NovoAdminDto novoAdminDto) {
+    public DetalhesUsuarioDto criarAdmin(CriarUsuarioDto criarUsuarioDto) {
         return null;
     }
 
     @Override
-    public AtividadeDetalhesDto cadastrarAtividade(NovaAtividadeDto atividadeCadastroDto) {
+    public DetalhesAtividadeDto cadastrarAtividade(CriarAtividadeDto atividadeCadastroDto) {
         return null;
     }
 
     @Override
-    public List<UsuarioDetalhesDto> listarUsuarios() {
+    public List<DetalhesUsuarioDto> listarUsuarios() {
         return List.of();
     }
 
@@ -40,17 +38,17 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<ProfessorDetalhesDto> listarProfessores() {
+    public List<DetalhesUsuarioDto> listarProfessores() {
         return List.of();
     }
 
     @Override
-    public List<AdminDetalhesDto> listarAdmins() {
+    public List<DetalhesUsuarioDto> listarAdmins() {
         return List.of();
     }
 
     @Override
-    public ProfessorDetalhesDto obterDetalhesProfessor(Long matricula) {
+    public DetalhesUsuarioDto obterDetalhesProfessor(Long matricula) {
         return null;
     }
 }

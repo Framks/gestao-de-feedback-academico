@@ -1,12 +1,9 @@
 package com.gestao.feedback_academico.domain.usecase;
 
-import com.gestao.feedback_academico.domain.dto.NovaAtividadeDto;
-import com.gestao.feedback_academico.domain.dto.NovoAdminDto;
-import com.gestao.feedback_academico.domain.dto.NovoProfessorDto;
-import com.gestao.feedback_academico.domain.dto.AdminDetalhesDto;
-import com.gestao.feedback_academico.domain.dto.AtividadeDetalhesDto;
-import com.gestao.feedback_academico.domain.dto.ProfessorDetalhesDto;
-import com.gestao.feedback_academico.domain.dto.UsuarioDetalhesDto;
+import com.gestao.feedback_academico.domain.dto.CriarAtividadeDto;
+import com.gestao.feedback_academico.domain.dto.CriarUsuarioDto;
+import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAtividadeDto;
+import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesUsuarioDto;
 
 import java.util.List;
 
@@ -19,18 +16,18 @@ public interface AdminService {
     /**
      * Cria um novo professor.
      *
-     * @param novoProfessorDto DTO contendo os detalhes do novo professor a ser criado.
+     * @param criarUsuarioDto DTO contendo os detalhes do novo professor a ser criado.
      * @return
      */
-    ProfessorDetalhesDto criarProfessor(NovoProfessorDto novoProfessorDto);
+    DetalhesUsuarioDto criarProfessor(CriarUsuarioDto criarUsuarioDto);
 
     /**
      * Cria um novo admin.
      *
-     * @param novoAdminDto DTO contendo os detalhes do novo admin a ser criado.
+     * @param criarUsuarioDto DTO contendo os detalhes do novo admin a ser criado.
      * @return
      */
-    AdminDetalhesDto criarAdmin(NovoAdminDto novoAdminDto);
+    DetalhesUsuarioDto criarAdmin(CriarUsuarioDto criarUsuarioDto);
 
     /**
      * Cadastra uma nova atividade.
@@ -38,14 +35,14 @@ public interface AdminService {
      * @param atividadeCadastroDto DTO contendo os detalhes da nova atividade a ser cadastrada.
      * @return
      */
-    AtividadeDetalhesDto cadastrarAtividade(NovaAtividadeDto atividadeCadastroDto);
+    DetalhesAtividadeDto cadastrarAtividade(CriarAtividadeDto atividadeCadastroDto);
 
     /**
      * Lista todos os usuários.
      *
-     * @return Uma lista de {@link UsuarioDetalhesDto} contendo os detalhes de todos os usuários.
+     * @return Uma lista de {@link DetalhesUsuarioDto} contendo os detalhes de todos os usuários.
      */
-    List<UsuarioDetalhesDto> listarUsuarios();
+    List<DetalhesUsuarioDto> listarUsuarios();
 
     /**
      * Apaga um usuário específico.
@@ -57,16 +54,16 @@ public interface AdminService {
     /**
      * Lista todos os professores cadastrados.
      *
-     * @return Uma lista de {@link ProfessorDetalhesDto} contendo os detalhes de todos os professores cadastrados.
+     * @return Uma lista de {@link DetalhesUsuarioDto} contendo os detalhes de todos os professores cadastrados.
      */
-    List<ProfessorDetalhesDto> listarProfessores();
+    List<DetalhesUsuarioDto> listarProfessores();
 
     /**
      * Lista todos os admins cadastrados.
      *
-     * @return Uma lista de {@link AdminDetalhesDto} contendo os detalhes de todos os admins cadastrados.
+     * @return Uma lista de {@link DetalhesUsuarioDto} contendo os detalhes de todos os admins cadastrados.
      */
-    List<AdminDetalhesDto> listarAdmins();
+    List<DetalhesUsuarioDto> listarAdmins();
 
     /**
      * Obtém os detalhes de um professor específico pela matrícula.
@@ -74,5 +71,5 @@ public interface AdminService {
      * @param matricula A matrícula do professor a ser consultado.
      * @return Os detalhes do professor.
      */
-    ProfessorDetalhesDto obterDetalhesProfessor(Long matricula);
+    DetalhesUsuarioDto obterDetalhesProfessor(Long matricula);
 }

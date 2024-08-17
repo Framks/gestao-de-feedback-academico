@@ -1,9 +1,9 @@
 package com.gestao.feedback_academico.domain.entity;
 
 public enum UserRole {
-    ADMIN("admin"),
-    ALUNO("aluno"),
-    PROFESSOR("professor");
+    ADMIN("ADMIN"),
+    ALUNO("ALUNO"),
+    PROFESSOR("PROFESSOR");
 
     private String role;
 

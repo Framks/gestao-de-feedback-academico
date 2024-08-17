@@ -1,49 +1,47 @@
 package com.gestao.feedback_academico.domain.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.UUID;
 
-@Entity
-@Table(name = "atividades")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "Atividade", uniqueConstraints = @UniqueConstraint(columnNames = "uk_nome"))
 public class Atividade {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
-    @Column(nullable = false)
-    private String nome;
-
-    private String descricao;
-
-    @Column(nullable = false)
-    private boolean disponivel;
-
-    @OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Avaliacao> avaliacoes;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "turma_id", nullable = false)
-    private Turma turma;
+    @JoinColumn(name = "fk_criador", nullable = false)
+    private User criador;
 
-    // Getters and Setters
+    @Column(name = "uk_nome", length = 100, nullable = false)
+    private String nome;
+
+    @Column(name = "descricao", length = 300)
+    private String descricao;
+
+    @Column(name = "peso", nullable = false)
+    private Integer peso = 1;
+
+    @Column(name = "disponivel", nullable = false)
+    private Boolean disponivel;
 }
+

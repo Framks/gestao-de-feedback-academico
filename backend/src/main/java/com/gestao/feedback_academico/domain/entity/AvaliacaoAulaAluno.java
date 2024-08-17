@@ -18,29 +18,33 @@ import lombok.Setter;
 
 import java.util.Date;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Aula", uniqueConstraints = @UniqueConstraint(columnNames = {"data_ocorreu", "fk_turma"}))
-public class Aula {
+@Table(name = "Avaliacao_aula_aluno", uniqueConstraints = @UniqueConstraint(columnNames = {"fk_aula", "fk_aluno_matriculado"}))
+public class AvaliacaoAulaAluno {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "fk_turma", nullable = false)
-    private Turma turma;
+    @JoinColumn(name = "fk_aula", nullable = false)
+    private Aula aula;
 
-    @Column(name = "data_ocorreu", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "fk_aluno_matriculado", nullable = false)
+    private AlunoMatriculado alunoMatriculado;
+
+    @Column(name = "data_avaliacao", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date dataOcorreu;
+    private Date dataAvaliacao;
+
+    @Column(name = "nota", nullable = false)
+    private Integer nota;
 
     @Column(name = "descricao", length = 300)
     private String descricao;
 }
-
-
