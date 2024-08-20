@@ -7,6 +7,7 @@ import com.gestao.feedback_academico.domain.dto.CriarTurmaDto;
 import com.gestao.feedback_academico.domain.dto.CriarUsuarioDto;
 import com.gestao.feedback_academico.domain.dto.IdTurmaDto;
 import com.gestao.feedback_academico.domain.dto.detalhes.*;
+import com.gestao.feedback_academico.domain.entity.User;
 import com.gestao.feedback_academico.domain.usecase.ProfessorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -33,6 +34,12 @@ import java.util.List;
 public class ProfessorController {
 
     private ProfessorService professorService;
+
+    @GetMapping("/")
+    public ResponseEntity<List<DetalhesUsuarioDto>> getAllProfessores(){
+        List<DetalhesUsuarioDto> professores = professorService.getAllProfessores();
+        return ResponseEntity.ok(professores);
+    }
 
     /**
      * Recupera todas as aulas de uma turma específica.

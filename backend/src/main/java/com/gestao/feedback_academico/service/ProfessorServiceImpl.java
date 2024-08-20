@@ -11,13 +11,28 @@ import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAvaliacaoAtivAl
 import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAvaliacaoAulaAlunoDto;
 import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesTurmaDto;
 import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesUsuarioDto;
+import com.gestao.feedback_academico.domain.entity.User;
+import com.gestao.feedback_academico.domain.entity.UserRole;
+import com.gestao.feedback_academico.domain.repository.ProfessorRepository;
 import com.gestao.feedback_academico.domain.usecase.ProfessorService;
+import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
 import java.util.List;
 
+@AllArgsConstructor
 @Service
 public class ProfessorServiceImpl implements ProfessorService {
+
+    private ProfessorRepository professorRepository;
+    private ModelMapper modelMap;
+
+    public List<DetalhesUsuarioDto> getAllProfessores(){
+        List<User> usuarios = this.professorRepository.findAllByRole(UserRole.PROFESSOR).orElseThrow();
+        return usuarios.stream().map(user -> this.modelMap.map(user, DetalhesUsuarioDto.class)).toList();
+    }
 
     @Override
     public List<DetalhesAtividadeDto> getAllAtividades() {
