@@ -115,10 +115,14 @@ public interface ProfessorService {
     /**
      * Cria um novo aluno com as informações fornecidas.
      *
-     * @param criarUsuarioDto DTO contendo as informações do novo aluno a ser criado.
-     * @return {@link DetalhesUsuarioDto} contendo os detalhes do aluno criado.
+     * param criarUsuarioDto DTO contendo as informações do novo aluno a ser criado.
+     * return {@ink DetalhesUsuarioDto} contendo os detalhes do aluno criado.
+        DetalhesUsuarioDto criarNovoAluno(CriarUsuarioDto criarUsuarioDto);
      */
-    DetalhesUsuarioDto criarNovoAluno(CriarUsuarioDto criarUsuarioDto);
-
     List<DetalhesUsuarioDto> getAllProfessores();
+    DetalhesUsuarioDto getProfessorByemail(String email);
+    DetalhesUsuarioDto criarProfessor(CriarUsuarioDto novoProfessor);
+    DetalhesUsuarioDto atualizarProfessor(DetalhesUsuarioDto detalhesUsuarioDto);
+    void deleteProfessor(Long id);
+
 }
