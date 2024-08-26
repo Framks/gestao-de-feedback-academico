@@ -15,7 +15,7 @@ import jakarta.persistence.UniqueConstraint;
 import java.util.Date;
 
 @Entity
-@Table(name = "Avaliacao_ativ_aluno", uniqueConstraints = @UniqueConstraint(columnNames = {"fk_ativ_disp_turmas", "fk_aluno"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"fk_ativ_disp_turmas", "fk_aluno"}))
 public class AvaliacaoAtivAluno {
 
     @Id
@@ -34,9 +34,9 @@ public class AvaliacaoAtivAluno {
     @Temporal(TemporalType.DATE)
     private Date dataAvaliacao;
 
-    @Column(name = "nota", nullable = false)
+    @Column(nullable = false)
     private Integer nota;
 
-    @Column(name = "descricao", length = 300)
+    @Column(length = 300)
     private String descricao;
 }

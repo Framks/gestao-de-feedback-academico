@@ -16,18 +16,18 @@ alter database "feedback-academico" set search_path to feedback-academico;
     
 CREATE TYPE USUARIO_ROLES AS ENUM ('ADMIN', 'ALUNO', 'PROFESSOR');
 
-CREATE TABLE Usuario (
+CREATE TABLE usuario (
                          id SERIAL PRIMARY KEY,
-                         usr_role USUARIO_ROLES NOT NULL,
+                         role USUARIO_ROLES NOT NULL,
                          p_nome CHARACTER VARYING(100) NOT NULL,
                          s_nome CHARACTER VARYING(100) NOT NULL,
-                         uk_email CHARACTER VARYING(100) NOT NULL UNIQUE,
+                         email CHARACTER VARYING(100) NOT NULL UNIQUE,
                          senha CHARACTER VARYING(256) NOT NULL,
-                         uk_matricula INTEGER UNIQUE,
+                         matricula INTEGER UNIQUE,
                          link_telegram CHARACTER VARYING(200)
 );
 
-CREATE TABLE Turma (
+CREATE TABLE turma (
                        id SERIAL PRIMARY KEY,
                        fk_professor SERIAL NOT NULL,
                        codigo CHARACTER VARYING(50) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE Turma (
                        CONSTRAINT chk_semestre1ou2 CHECK (semestre IN (1, 2))
 );
 
-CREATE TABLE Aula (
+CREATE TABLE aula (
                       id SERIAL PRIMARY KEY,
                       fk_turma SERIAL NOT NULL,
                       data_ocorreu DATE NOT NULL,
@@ -57,10 +57,10 @@ CREATE TABLE Aula (
                       CONSTRAINT uk_aula_na_turma UNIQUE (data_ocorreu, fk_turma)
 );
 
-CREATE TABLE Atividade (
+CREATE TABLE atividade (
                            id SERIAL PRIMARY KEY,
                            fk_criador SERIAL NOT NULL,
-                           uk_nome CHARACTER VARYING(100) NOT NULL UNIQUE,
+                           nome CHARACTER VARYING(100) NOT NULL UNIQUE,
                            descricao CHARACTER VARYING(300),
                            peso INTEGER DEFAULT 1,
                            disponivel BOOLEAN NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE Atividade (
                                ON DELETE CASCADE
 );
 
-CREATE TABLE Aluno_matriculado (
+CREATE TABLE aluno_matriculado (
                                    id SERIAL PRIMARY KEY,
                                    fk_aluno INT NOT NULL,
                                    fk_turma INT NOT NULL,
@@ -88,7 +88,7 @@ CREATE TABLE Aluno_matriculado (
                                    CONSTRAINT uk_aluno_turma_semestre UNIQUE (fk_aluno, semestre, ano)
 );
 
-CREATE TABLE Ativ_disp_turmas (
+CREATE TABLE ativ_disp_turmas (
                                   id SERIAL PRIMARY KEY,
                                   fk_turma SERIAL NOT NULL,
                                   fk_atividade SERIAL NOT NULL,
@@ -107,7 +107,7 @@ CREATE TABLE Ativ_disp_turmas (
                                   CONSTRAINT uk_ativ_disp_turmas UNIQUE (fk_turma, fk_atividade)
 );
 
-CREATE TABLE Avaliacao_aula_aluno (
+CREATE TABLE avaliacao_aula_aluno (
                                       id SERIAL PRIMARY KEY,
                                       fk_aula SERIAL NOT NULL,
                                       fk_aluno_matriculado SERIAL NOT NULL,
@@ -127,7 +127,7 @@ CREATE TABLE Avaliacao_aula_aluno (
                                       CONSTRAINT uk_avaliacao_aula_aluno UNIQUE (fk_aula, fk_aluno_matriculado)
 );
 
-CREATE TABLE Avaliacao_ativ_aluno (
+CREATE TABLE avaliacao_ativ_aluno (
                                       id SERIAL PRIMARY KEY,
                                       fk_ativ_disp_turmas SERIAL NOT NULL,
                                       fk_aluno SERIAL NOT NULL,

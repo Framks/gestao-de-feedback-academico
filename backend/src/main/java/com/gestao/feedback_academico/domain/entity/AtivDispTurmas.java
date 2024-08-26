@@ -23,7 +23,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Ativ_disp_turmas", uniqueConstraints = @UniqueConstraint(columnNames = {"fk_turma", "fk_atividade"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"fk_turma", "fk_atividade"}))
 public class AtivDispTurmas {
 
     @Id

@@ -23,7 +23,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Avaliacao_aula_aluno", uniqueConstraints = @UniqueConstraint(columnNames = {"fk_aula", "fk_aluno_matriculado"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"fk_aula", "fk_aluno_matriculado"}))
 public class AvaliacaoAulaAluno {
 
     @Id
@@ -42,9 +42,9 @@ public class AvaliacaoAulaAluno {
     @Temporal(TemporalType.DATE)
     private Date dataAvaliacao;
 
-    @Column(name = "nota", nullable = false)
+    @Column(nullable = false)
     private Integer nota;
 
-    @Column(name = "descricao", length = 300)
+    @Column(length = 300)
     private String descricao;
 }

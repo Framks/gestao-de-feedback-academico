@@ -19,7 +19,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Aluno_matriculado", uniqueConstraints = @UniqueConstraint(columnNames = {"fk_aluno", "semestre", "ano"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"fk_aluno", "semestre", "ano"}))
 public class AlunoMatriculado {
 
     @Id
@@ -34,10 +34,10 @@ public class AlunoMatriculado {
     @JoinColumn(name = "fk_turma", nullable = false)
     private Turma turma;
 
-    @Column(name = "semestre", nullable = false)
+    @Column(nullable = false)
     private Integer semestre;
 
-    @Column(name = "ano", nullable = false)
+    @Column(nullable = false)
     private Integer ano;
 }
 
