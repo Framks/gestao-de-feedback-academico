@@ -35,67 +35,23 @@ public class ProfessorServiceImpl implements ProfessorService {
     }
 
     @Override
-    public List<DetalhesAtividadeDto> getAllAtividades() {
-        return List.of();
-    }
-
-    @Override
-    public List<DetalhesAulaDto> getAulasByTurma(IdTurmaDto turmaId) {
-        return List.of();
-    }
-
-    @Override
-    public List<DetalhesAtividadeDto> getAtividadesDisponibilizadas(IdTurmaDto turmaId) {
-        return List.of();
-    }
-
-    @Override
-    public DetalhesAtividadeDto disponibilizarAtividade(IdTurmaDto turmaId, CriarAtividadeDto criarAtividadeDto) {
+    public DetalhesUsuarioDto getProfessorByemail(String email) {
         return null;
     }
 
     @Override
-    public DetalhesTurmaDto criarTurma(CriarTurmaDto criarTurmaDto) {
+    public DetalhesUsuarioDto criarProfessor(CriarUsuarioDto novoProfessor) {
         return null;
     }
 
     @Override
-    public void apagarTurma(IdTurmaDto turmaId) {
-
-    }
-
-    @Override
-    public DetalhesAulaDto criarAula(IdTurmaDto turmaId, CriarAulaDto criarAulaDto) {
+    public DetalhesUsuarioDto atualizarProfessor(DetalhesUsuarioDto detalhesUsuarioDto) {
         return null;
     }
 
     @Override
-    public void apagarAula(IdTurmaDto turmaId, Long idAula) {
+    public void deleteProfessor(Long id) {
 
     }
 
-    @Override
-    public List<DetalhesAvaliacaoAulaAlunoDto> getAvaliacoesByAula(IdTurmaDto turmaId, Long idAula) {
-        return List.of();
-    }
-
-    @Override
-    public List<DetalhesAvaliacaoAtivAlunoDto> getAvaliacoesByAtividade(IdTurmaDto turmaId, Long atividadeId) {
-        return List.of();
-    }
-
-    @Override
-    public List<DetalhesAvaliacaoAulaAlunoDto> getAvaliacoesAulasByAluno(IdTurmaDto turmaId, Long matricula) {
-        return List.of();
-    }
-
-    @Override
-    public List<DetalhesAvaliacaoAtivAlunoDto> getAvaliacoesAtividadesByAluno(IdTurmaDto turmaId, Long matricula) {
-        return List.of();
-    }
-
-    @Override
-    public DetalhesUsuarioDto criarNovoAluno(CriarUsuarioDto criarUsuarioDto) {
-        return null;
-    }
 }
