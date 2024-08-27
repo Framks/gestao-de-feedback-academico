@@ -20,4 +20,3 @@ public record IdTurmaDto(
         @NotNull(message = "O ano não pode ser nulo.")
         Integer ano
 ) {}
-
