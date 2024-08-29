@@ -5,14 +5,18 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record CriarAtividadeDto(
-        @NotNull(message = "O ID do criador não pode ser nulo.") Long criadorId,
+        @NotNull(message = "O ID do criador não pode ser nulo.")
+        Long criadorId,
 
         @NotBlank(message = "O nome da atividade não pode ser vazio.")
-        @Size(max = 100, message = "O nome da atividade não pode ter mais que 100 caracteres.") String nome,
+        @Size(max = 100, message = "O nome da atividade não pode ter mais que 100 caracteres.")
+        String nome,
 
-        @Size(max = 300, message = "A descrição da atividade não pode ter mais que 300 caracteres.") String descricao,
+        @Size(max = 300, message = "A descrição da atividade não pode ter mais que 300 caracteres.")
+        String descricao,
 
-        @NotNull(message = "A disponibilidade da atividade deve ser especificada.") Boolean disponivel,
+        @NotNull(message = "A disponibilidade da atividade deve ser especificada.")
+        Boolean disponivel,
 
         Integer peso
 ) {}

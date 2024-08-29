@@ -4,9 +4,13 @@ import com.gestao.feedback_academico.domain.dto.CriarAtividadeDto;
 import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAtividadeDto;
 import com.gestao.feedback_academico.domain.entity.Atividade;
 import com.gestao.feedback_academico.domain.usecase.AtividadeService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@AllArgsConstructor
+@Service
 public class AtividadeServiceImpl implements AtividadeService {
     @Override
     public void criar(CriarAtividadeDto atividade) {
@@ -19,7 +23,7 @@ public class AtividadeServiceImpl implements AtividadeService {
     }
 
     @Override
-    public List<DetalhesAtividadeDto> buscarTodos() {
+    public List<DetalhesAtividadeDto> listar() {
         return List.of();
     }
 
@@ -32,4 +36,5 @@ public class AtividadeServiceImpl implements AtividadeService {
     public void atualizar(Long id, Atividade atividade) {
 
     }
+
 }

@@ -10,6 +10,6 @@ public interface AulaService {
     void criar(CriarAulaDto aula);
     void remover(Long id);
     DetalhesAulaDto buscarPorId(Long id);
-    List<DetalhesAulaDto> buscarTodos();
-
+    List<DetalhesAulaDto> listar();
+    void atualizar(Long Id, CriarAulaDto updateAula); // tipo de aula tem que ser mudado para um update aula
 }

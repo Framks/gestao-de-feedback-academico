@@ -10,6 +10,6 @@ public interface AdminService {
     void criar(User user);
     void atualizar(User user);
     void remover(Long id);
-    DetalhesUsuarioDto getAdmin(Long id);
-    List<DetalhesUsuarioDto> getAdmins();
+    DetalhesUsuarioDto buscarAdminPorID(Long id);
+    List<DetalhesUsuarioDto> listar();
 }

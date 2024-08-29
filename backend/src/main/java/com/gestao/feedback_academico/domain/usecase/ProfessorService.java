@@ -12,10 +12,10 @@ import java.util.List;
  */
 public interface ProfessorService {
 
-    List<DetalhesUsuarioDto> getAllProfessores();
-    DetalhesUsuarioDto getProfessorByemail(String email);
-    DetalhesUsuarioDto criarProfessor(CriarUsuarioDto novoProfessor);
-    DetalhesUsuarioDto atualizarProfessor(DetalhesUsuarioDto detalhesUsuarioDto);
-    void deleteProfessor(Long id);
+    List<DetalhesUsuarioDto> listar();
+    DetalhesUsuarioDto buscarProfessorPorEmail(String email);
+    DetalhesUsuarioDto criar(CriarUsuarioDto novoProfessor);
+    DetalhesUsuarioDto atualizar(DetalhesUsuarioDto detalhesUsuarioDto);
+    void deletar(Long id);
 
 }

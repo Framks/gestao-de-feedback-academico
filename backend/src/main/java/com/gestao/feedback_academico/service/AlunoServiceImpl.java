@@ -9,10 +9,12 @@ import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAvaliacaoAtivAl
 import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesUsuarioDto;
 import com.gestao.feedback_academico.domain.entity.User;
 import com.gestao.feedback_academico.domain.usecase.AlunoService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@AllArgsConstructor
 @Service
 public class AlunoServiceImpl implements AlunoService {
 
@@ -33,12 +35,13 @@ public class AlunoServiceImpl implements AlunoService {
     }
 
     @Override
-    public DetalhesUsuarioDto getAluno(Long id) {
+    public DetalhesUsuarioDto buscarAlunoPorId(Long id) {
         return null;
     }
 
     @Override
-    public List<DetalhesUsuarioDto> getAlunos() {
+    public List<DetalhesUsuarioDto> listar() {
         return List.of();
     }
+
 }

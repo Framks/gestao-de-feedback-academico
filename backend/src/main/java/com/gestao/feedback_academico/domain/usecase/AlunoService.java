@@ -19,7 +19,7 @@ public interface AlunoService {
     void criar(User user);
     void atualizar(User user);
     void remover(Long id);
-    DetalhesUsuarioDto getAluno(Long id);
-    List<DetalhesUsuarioDto> getAlunos();
+    DetalhesUsuarioDto buscarAlunoPorId(Long id);
+    List<DetalhesUsuarioDto> listar();
 
 }

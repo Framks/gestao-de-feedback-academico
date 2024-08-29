@@ -9,8 +9,7 @@ import java.util.List;
 public interface AtividadeService {
     void criar(CriarAtividadeDto atividade);
     DetalhesAtividadeDto buscarPorId(Long id);
-    List<DetalhesAtividadeDto> buscarTodos();
+    List<DetalhesAtividadeDto> listar();
     void remover(Long id);
     void atualizar(Long id, Atividade atividade);
-
 }

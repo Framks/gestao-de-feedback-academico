@@ -35,23 +35,27 @@ public class ProfessorServiceImpl implements ProfessorService {
     }
 
     @Override
-    public DetalhesUsuarioDto getProfessorByemail(String email) {
+    public List<DetalhesUsuarioDto> listar() {
+        return List.of();
+    }
+
+    @Override
+    public DetalhesUsuarioDto buscarProfessorPorEmail(String email) {
         return null;
     }
 
     @Override
-    public DetalhesUsuarioDto criarProfessor(CriarUsuarioDto novoProfessor) {
+    public DetalhesUsuarioDto criar(CriarUsuarioDto novoProfessor) {
         return null;
     }
 
     @Override
-    public DetalhesUsuarioDto atualizarProfessor(DetalhesUsuarioDto detalhesUsuarioDto) {
+    public DetalhesUsuarioDto atualizar(DetalhesUsuarioDto detalhesUsuarioDto) {
         return null;
     }
 
     @Override
-    public void deleteProfessor(Long id) {
+    public void deletar(Long id) {
 
     }
-
 }
