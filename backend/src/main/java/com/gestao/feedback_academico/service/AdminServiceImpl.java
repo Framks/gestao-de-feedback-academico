@@ -1,54 +1,42 @@
 package com.gestao.feedback_academico.service;
 
-import com.gestao.feedback_academico.domain.dto.CriarAtividadeDto;
-import com.gestao.feedback_academico.domain.dto.CriarUsuarioDto;
-import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAtividadeDto;
+
 import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesUsuarioDto;
+import com.gestao.feedback_academico.domain.entity.User;
 import com.gestao.feedback_academico.domain.usecase.AdminService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@AllArgsConstructor
 @Service
 public class AdminServiceImpl implements AdminService {
 
+
     @Override
-    public DetalhesUsuarioDto criarProfessor(CriarUsuarioDto criarUsuarioDto) {
+    public void criar(User user) {
+
+    }
+
+    @Override
+    public void atualizar(User user) {
+
+    }
+
+    @Override
+    public void remover(Long id) {
+
+    }
+
+    @Override
+    public DetalhesUsuarioDto buscarAdminPorID(Long id) {
         return null;
     }
 
     @Override
-    public DetalhesUsuarioDto criarAdmin(CriarUsuarioDto criarUsuarioDto) {
-        return null;
-    }
-
-    @Override
-    public DetalhesAtividadeDto cadastrarAtividade(CriarAtividadeDto atividadeCadastroDto) {
-        return null;
-    }
-
-    @Override
-    public List<DetalhesUsuarioDto> listarUsuarios() {
+    public List<DetalhesUsuarioDto> listar() {
         return List.of();
     }
 
-    @Override
-    public void apagarUsuario(String login) {
-
-    }
-
-    @Override
-    public List<DetalhesUsuarioDto> listarProfessores() {
-        return List.of();
-    }
-
-    @Override
-    public List<DetalhesUsuarioDto> listarAdmins() {
-        return List.of();
-    }
-
-    @Override
-    public DetalhesUsuarioDto obterDetalhesProfessor(Long matricula) {
-        return null;
-    }
 }
