@@ -21,7 +21,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Atividade", uniqueConstraints = @UniqueConstraint(columnNames = "uk_nome"))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "uk_nome"))
 public class Atividade {
 
     @Id
@@ -32,16 +32,16 @@ public class Atividade {
     @JoinColumn(name = "fk_criador", nullable = false)
     private User criador;
 
-    @Column(name = "uk_nome", length = 100, nullable = false)
+    @Column(length = 100, nullable = false)
     private String nome;
 
-    @Column(name = "descricao", length = 300)
+    @Column(length = 300)
     private String descricao;
 
-    @Column(name = "peso", nullable = false)
+    @Column(nullable = false)
     private Integer peso = 1;
 
-    @Column(name = "disponivel", nullable = false)
+    @Column( nullable = false)
     private Boolean disponivel;
 }
 

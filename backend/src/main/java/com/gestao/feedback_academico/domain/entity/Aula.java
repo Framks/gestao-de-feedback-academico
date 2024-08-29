@@ -24,7 +24,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Aula", uniqueConstraints = @UniqueConstraint(columnNames = {"data_ocorreu", "fk_turma"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"data_ocorreu", "fk_turma"}))
 public class Aula {
 
     @Id
@@ -39,7 +39,7 @@ public class Aula {
     @Temporal(TemporalType.DATE)
     private Date dataOcorreu;
 
-    @Column(name = "descricao", length = 300)
+    @Column(length = 300)
     private String descricao;
 }
 

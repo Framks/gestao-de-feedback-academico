@@ -18,7 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Usuario")
+@Table(name = "usuario")
 public class User {
 
     @Id
@@ -26,7 +26,7 @@ public class User {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "usr_role", nullable = false)
+    @Column( nullable = false)
     private UserRole role;
 
     @Column(name = "p_nome", length = 100, nullable = false)
@@ -35,13 +35,13 @@ public class User {
     @Column(name = "s_nome", length = 100, nullable = false)
     private String segundoNome;
 
-    @Column(name = "uk_email", length = 100, nullable = false, unique = true)
+    @Column(length = 100, nullable = false, unique = true)
     private String email;
 
-    @Column(name = "senha", length = 256, nullable = false)
+    @Column(length = 256, nullable = false)
     private String senha;
 
-    @Column(name = "uk_matricula", unique = true)
+    @Column(unique = true)
     private Integer matricula;
 
     @Column(name = "link_telegram", length = 200)

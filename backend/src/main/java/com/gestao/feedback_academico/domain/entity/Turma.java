@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Turma", uniqueConstraints = @UniqueConstraint(columnNames = {"codigo", "disciplina", "semestre", "ano"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"codigo", "disciplina", "semestre", "ano"}))
 public class Turma {
 
     @Id
