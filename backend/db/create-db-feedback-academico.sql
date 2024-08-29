@@ -1,18 +1,18 @@
 \c feedback-academico;
 
 -- Cria um novo esquema chamado 'feedback-academico' no banco de dados atual
-create schema feedback-academico;
+create schema feedbackAcademico;
 
 -- Concede todas as permissões no esquema 'feedback-academico' ao usuário 'postgres'.
-grant all on schema feedback-academico to postgres;
+grant all on schema feedbackAcademico to postgres;
 
 -- Configura o caminho de pesquisa de esquemas (search_path) para incluir apenas o esquema 'feedback-academico'.
-set search_path to feedback-academico;
+set search_path to feedbackAcademico;
 
 -- Configura o caminho de pesquisa padrão para o banco de dados 'feedback-academico' para incluir apenas o esquema 'feedback-academico'.
 -- Isso significa que todas as sessões futuras conectadas a esse banco de dados usarão 'feedback-academico' como o esquema padrão,
 -- a menos que seja explicitamente alterado na sessão.
-alter database "feedback-academico" set search_path to feedback-academico;
+alter database "feedbackAcademico" set search_path to feedbackAcademico;
     
 CREATE TYPE USUARIO_ROLES AS ENUM ('ADMIN', 'ALUNO', 'PROFESSOR');
 
