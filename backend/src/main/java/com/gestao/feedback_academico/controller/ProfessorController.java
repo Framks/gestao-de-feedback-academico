@@ -30,14 +30,14 @@ import java.util.List;
 @Validated
 @RestController
 @AllArgsConstructor
-@RequestMapping("/professores")
+@RequestMapping("/professor")
 public class ProfessorController {
 
-    private ProfessorService professorService;
+    private final ProfessorService professorService;
 
     @GetMapping("/")
     public ResponseEntity<List<DetalhesUsuarioDto>> getAllProfessores(){
-        List<DetalhesUsuarioDto> professores = professorService.getAllProfessores();
+        List<DetalhesUsuarioDto> professores = professorService.listar();
         return ResponseEntity.ok(professores);
     }
 
