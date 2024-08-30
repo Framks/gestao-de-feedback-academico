@@ -39,7 +39,7 @@ public class AdminController {
     private final AdminService adminService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<DetalhesUsuarioDto> buscarAdmin(@PathParam("id") Long id){
+    public ResponseEntity<DetalhesUsuarioDto> buscarAdmin(@PathVariable Long id){
         return ResponseEntity.ok(adminService.buscarAdminPorID(id));
     }
 

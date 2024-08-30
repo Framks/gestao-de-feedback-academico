@@ -2,6 +2,7 @@ package com.gestao.feedback_academico.service;
 
 import com.gestao.feedback_academico.domain.dto.CriarAvaliacaoAtivAlunoDto;
 import com.gestao.feedback_academico.domain.dto.CriarAvaliacaoAulaAlunoDto;
+import com.gestao.feedback_academico.domain.dto.CriarUsuarioDto;
 import com.gestao.feedback_academico.domain.dto.IdTurmaDto;
 import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAtividadeDto;
 import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAulaDto;
@@ -20,13 +21,13 @@ public class AlunoServiceImpl implements AlunoService {
 
 
     @Override
-    public void criar(User user) {
-
+    public DetalhesUsuarioDto criar(CriarUsuarioDto user) {
+        return null;
     }
 
     @Override
-    public void atualizar(User user) {
-
+    public DetalhesUsuarioDto atualizar(CriarUsuarioDto user) {
+        return null;
     }
 
     @Override
