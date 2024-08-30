@@ -1,6 +1,7 @@
 package com.gestao.feedback_academico.service;
 
 
+import com.gestao.feedback_academico.domain.dto.CriarUsuarioDto;
 import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesUsuarioDto;
 import com.gestao.feedback_academico.domain.entity.User;
 import com.gestao.feedback_academico.domain.usecase.AdminService;
@@ -15,8 +16,8 @@ public class AdminServiceImpl implements AdminService {
 
 
     @Override
-    public void criar(User user) {
-
+    public DetalhesUsuarioDto criar(CriarUsuarioDto user) {
+        return null;
     }
 
     @Override
