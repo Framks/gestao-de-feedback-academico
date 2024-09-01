@@ -16,13 +16,13 @@ const Home = () => {
                                 <a href="/" className="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">Aulas</a>
                                 <ul className="dropdown-menu bg-dark">
                                     <li>
-                                        <Link className="dropdown-item bg-dark text-white" to="/avaliacao/aula/">Avaliações Aulas</Link>
+                                        <Link className="dropdown-item bg-dark text-white" to="/aula/avaliacao/">Avaliações Aulas</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item bg-dark text-white" to="/avaliacao/aula/">Ver Avaliações</Link>
+                                        <Link className="dropdown-item bg-dark text-white" to="/aula/listar/">Ver Avaliações</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item bg-dark text-white" to="/avaliacao/aula/">Cadastrar Aula</Link>
+                                        <Link className="dropdown-item bg-dark text-white" to="/aula/criar/">Cadastrar Aula</Link>
                                     </li>
                                 </ul>
                             </li>
@@ -30,28 +30,35 @@ const Home = () => {
                                 <a href="/" className="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">Atividades</a>
                                 <ul className="dropdown-menu bg-dark">
                                     <li>
-                                        <Link className="dropdown-item bg-dark text-white" to="/avaliacao/aula/">Avaliações Atividades</Link>
+                                        <Link className="dropdown-item bg-dark text-white" to="/atividade/avaliacao/">Avaliações Atividades</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item bg-dark text-white" to="/avaliacao/aula/">Criar Atividade</Link>
+                                        <Link className="dropdown-item bg-dark text-white" to="/atividade/criar/">Criar Atividade</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item bg-dark text-white" to="/avaliacao/aula/">Ver Atividades</Link>
+                                        <Link className="dropdown-item bg-dark text-white" to="/atividade/listar/">Ver Atividades</Link>
                                     </li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
                                 <a href="/" className="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">Turmas</a>
                                 <ul className="dropdown-menu bg-dark">
-                                    <li><Link className="dropdown-item bg-dark text-white" to="/avaliacao/aula/">Criar Turma</Link></li>
-                                    <li><Link className="dropdown-item bg-dark text-white" to="/avaliacao/aula/">Ver Turmas</Link></li>
+                                    <li><Link className="dropdown-item bg-dark text-white" to="/turma/criar/">Criar Turma</Link></li>
+                                    <li><Link className="dropdown-item bg-dark text-white" to="/turma/listar/">Ver Turmas</Link></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
                                 <a href="/" className="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">Alunos</a>
                                 <ul className="dropdown-menu bg-dark">
-                                    <li><Link className="dropdown-item bg-dark text-white" to="/avaliacao/aula/">Cadastrar Aluno</Link></li>
-                                    <li><Link className="dropdown-item bg-dark text-white" to="/avaliacao/aula/">Ver Alunos</Link></li>
+                                    <li><Link className="dropdown-item bg-dark text-white" to="/aluno/listar/">Cadastrar Aluno</Link></li>
+                                    <li><Link className="dropdown-item bg-dark text-white" to="/aluno/listar/">Ver Alunos</Link></li>
+                                </ul>
+                            </li>
+                            <li className="nav-item dropdown">
+                                <a href="/" className="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">Professor</a>
+                                <ul className="dropdown-menu bg-dark">
+                                    <li><Link className="dropdown-item bg-dark text-white" to="/professor/criar/">Cadastrar Professor</Link></li>
+                                    <li><Link className="dropdown-item bg-dark text-white" to="/professor/listar/">Ver Professores</Link></li>
                                 </ul>
                             </li>
                         </ul>
