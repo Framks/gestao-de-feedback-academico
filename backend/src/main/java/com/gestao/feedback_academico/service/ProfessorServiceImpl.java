@@ -29,14 +29,10 @@ public class ProfessorServiceImpl implements ProfessorService {
     private ProfessorRepository professorRepository;
     private ModelMapper modelMap;
 
-    public List<DetalhesUsuarioDto> getAllProfessores(){
-        List<User> usuarios = this.professorRepository.findAllByRole(UserRole.PROFESSOR).orElseThrow();
-        return usuarios.stream().map(user -> this.modelMap.map(user, DetalhesUsuarioDto.class)).toList();
-    }
-
     @Override
     public List<DetalhesUsuarioDto> listar() {
-        return List.of();
+        List<User> usuarios = this.professorRepository.findAllByRole(UserRole.PROFESSOR).orElseThrow();
+        return usuarios.stream().map(user -> this.modelMap.map(user, DetalhesUsuarioDto.class)).toList();
     }
 
     @Override

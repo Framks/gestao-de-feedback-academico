@@ -1,9 +1,19 @@
 package com.gestao.feedback_academico.domain.dto.detalhes;
 
-public record DetalhesAlunoMatriculadoDto(
-        Long id,
-        Long alunoId,
-        Long turmaId,
-        Integer semestre,
-        Integer ano
-) {}
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class DetalhesAlunoMatriculadoDto {
+
+    private Long id;
+    private Long alunoId;
+    private Long turmaId;
+    private Integer semestre;
+    private Integer ano;
+}

@@ -1,10 +1,20 @@
 package com.gestao.feedback_academico.domain.dto.detalhes;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.Date;
 
-public record DetalhesAulaDto(
-        Long id,
-        Long turmaId,
-        Date dataOcorreu,
-        String descricao
-) {}
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class DetalhesAulaDto {
+
+    private Long id;
+    private Long turmaId;
+    private Date dataOcorreu;
+    private String descricao;
+}

@@ -9,8 +9,11 @@ import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAulaDto;
 import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAvaliacaoAtivAlunoDto;
 import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesUsuarioDto;
 import com.gestao.feedback_academico.domain.entity.User;
+import com.gestao.feedback_academico.domain.entity.UserRole;
+import com.gestao.feedback_academico.domain.repository.AlunoRepository;
 import com.gestao.feedback_academico.domain.usecase.AlunoService;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +22,8 @@ import java.util.List;
 @Service
 public class AlunoServiceImpl implements AlunoService {
 
+    private final AlunoRepository alunoRepository;
+    private final ModelMapper modelMap;
 
     @Override
     public DetalhesUsuarioDto criar(CriarUsuarioDto user) {
@@ -42,7 +47,8 @@ public class AlunoServiceImpl implements AlunoService {
 
     @Override
     public List<DetalhesUsuarioDto> listar() {
-        return List.of();
+    List<User> usuarios = alunoRepository.findAllByRole(UserRole.ALUNO).orElseThrow();
+        return usuarios.stream().map(user -> this.modelMap.map(user, DetalhesUsuarioDto.class)).toList();
     }
 
 }

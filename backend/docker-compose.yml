@@ -2,12 +2,12 @@ services:
   db-feedback-academico:
     image: postgres:latest
     container_name: db-api-feedback-academico
-    environment:
-      POSTGRES_DB: feedback-academico
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgres"
     ports:
       - "5432:5432"
+    environment:
+      POSTGRES_DB: feedbackAcademico
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
     volumes:
       - ./db/create-db-feedback-academico.sql:/docker-entrypoint-initdb.d/create-db-feedback-academico.sql
       - feedback-academico_data:/var/lib/postgresql/data

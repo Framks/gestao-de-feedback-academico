@@ -1,24 +1,8 @@
-\c feedback-academico;
-
--- Cria um novo esquema chamado 'feedback-academico' no banco de dados atual
-create schema feedbackAcademico;
-
--- Concede todas as permissões no esquema 'feedback-academico' ao usuário 'postgres'.
-grant all on schema feedbackAcademico to postgres;
-
--- Configura o caminho de pesquisa de esquemas (search_path) para incluir apenas o esquema 'feedback-academico'.
-set search_path to feedbackAcademico;
-
--- Configura o caminho de pesquisa padrão para o banco de dados 'feedback-academico' para incluir apenas o esquema 'feedback-academico'.
--- Isso significa que todas as sessões futuras conectadas a esse banco de dados usarão 'feedback-academico' como o esquema padrão,
--- a menos que seja explicitamente alterado na sessão.
-alter database "feedbackAcademico" set search_path to feedbackAcademico;
-    
-CREATE TYPE USUARIO_ROLES AS ENUM ('ADMIN', 'ALUNO', 'PROFESSOR');
+\c feedbackAcademico;
 
 CREATE TABLE usuario (
                          id SERIAL PRIMARY KEY,
-                         role USUARIO_ROLES NOT NULL,
+                         role varchar(10) NOT NULL,
                          p_nome CHARACTER VARYING(100) NOT NULL,
                          s_nome CHARACTER VARYING(100) NOT NULL,
                          email CHARACTER VARYING(100) NOT NULL UNIQUE,
@@ -34,13 +18,11 @@ CREATE TABLE turma (
                        disciplina CHARACTER VARYING(100) NOT NULL,
                        semestre INTEGER NOT NULL,
                        ano INTEGER NOT NULL,
-    -- Garante que a combinação 02A, POO, 1, 2024 não se repete.  
                        CONSTRAINT uk_codigo_disciplina_semestre_ano UNIQUE (codigo, disciplina, semestre, ano),
                        CONSTRAINT fk_professor_id FOREIGN KEY (fk_professor)
                            REFERENCES Usuario(id)
                            ON UPDATE CASCADE
                            ON DELETE CASCADE,
-    -- Valida que o valor na coluna semestre só pode ser 1 ou 2.
                        CONSTRAINT chk_semestre1ou2 CHECK (semestre IN (1, 2))
 );
 
@@ -53,7 +35,6 @@ CREATE TABLE aula (
                           REFERENCES Turma(id)
                           ON UPDATE CASCADE
                           ON DELETE CASCADE,
-    --Não deve haver mais de uma aula ocorrendo para a mesma turma na mesma data.
                       CONSTRAINT uk_aula_na_turma UNIQUE (data_ocorreu, fk_turma)
 );
 
@@ -84,7 +65,6 @@ CREATE TABLE aluno_matriculado (
                                        REFERENCES Usuario(id)
                                        ON UPDATE CASCADE
                                        ON DELETE CASCADE,
-    -- Restrição para garantir que um aluno só possa estar em uma turma por semestre e ano.
                                    CONSTRAINT uk_aluno_turma_semestre UNIQUE (fk_aluno, semestre, ano)
 );
 
@@ -101,9 +81,6 @@ CREATE TABLE ativ_disp_turmas (
                                   CONSTRAINT fk_atividade_id FOREIGN KEY (fk_atividade) REFERENCES Atividade(id)
                                       ON UPDATE CASCADE
                                       ON DELETE CASCADE,
-    --Não deve haver mais de uma combinação entre fk_turma e fk_atividade,
-    --pois uma atividade não pode ser disponibilizada mais de uma vez na mesma turma.
-    --Cada combinação de turma e atividade deve ser única.
                                   CONSTRAINT uk_ativ_disp_turmas UNIQUE (fk_turma, fk_atividade)
 );
 
@@ -122,8 +99,6 @@ CREATE TABLE avaliacao_aula_aluno (
                                           REFERENCES Aluno_matriculado(id)
                                           ON UPDATE CASCADE
                                           ON DELETE CASCADE,
-    --Não deve haver mais de uma avaliação para o mesmo aluno em uma única aula.
-    --Cada combinação de aluno e aula deve ser única, pois um aluno só pode realizar uma avaliação por aula.
                                       CONSTRAINT uk_avaliacao_aula_aluno UNIQUE (fk_aula, fk_aluno_matriculado)
 );
 
@@ -142,8 +117,47 @@ CREATE TABLE avaliacao_ativ_aluno (
                                           REFERENCES Usuario(id)
                                           ON UPDATE CASCADE
                                           ON DELETE CASCADE,
-    --Não deve haver mais de uma combinação entre fk_ativ_disp_turmas e fk_aluno,
-    --pois cada aluno pode ter apenas uma avaliação por atividade.
-    --Assim, cada combinação de atividade disponibilizada e aluno deve ser única.
                                       CONSTRAINT uk_avaliacao_atividade_aluno UNIQUE (fk_ativ_disp_turmas, fk_aluno)
 );
+
+-- Inserindo dados na tabela Usuario
+INSERT INTO usuario (role, p_nome, s_nome, email, senha, matricula, link_telegram) VALUES
+        ('ADMIN', 'Joao', 'Silva', 'joao.silva@admin.com', 'senha123', 20230102, NULL),
+        ('ALUNO', 'Maria', 'Oliveira', 'maria.oliveira@aluno.com', 'senha123', 20230101, 'https://t.me/maria_oliveira'),
+        ('PROFESSOR', 'Carlos', 'Santos', 'carlos.santos@prof.com', 'senha123', 20230105, 'https://t.me/carlos_santos');
+
+-- Inserindo dados na tabela Turma
+INSERT INTO turma (fk_professor, codigo, disciplina, semestre, ano) VALUES
+        (3, 'INF101', 'Introdução à Informática', 1, 2024),
+        (3, 'INF102', 'Algoritmos e Estruturas de Dados', 2, 2024);
+
+-- Inserindo dados na tabela Aula
+INSERT INTO aula (fk_turma, data_ocorreu, descricao) VALUES
+    (1, '2024-02-10', 'Introdução ao curso e apresentação da disciplina'),
+    (1, '2024-02-17', 'Histórico da Computação'),
+    (2, '2024-08-05', 'Introdução aos Algoritmos');
+
+-- Inserindo dados na tabela Atividade
+INSERT INTO atividade (fk_criador, nome, descricao, peso, disponivel) VALUES
+    (3, 'Atividade 1', 'Primeira atividade do curso', 2, true),
+    (3, 'Atividade 2', 'Segunda atividade do curso', 1, false);
+
+-- Inserindo dados na tabela Aluno_matriculado
+INSERT INTO aluno_matriculado (fk_aluno, fk_turma, semestre, ano) VALUES
+    (2, 1, 1, 2024),
+    (2, 2, 2, 2024);
+
+-- Inserindo dados na tabela Ativ_disp_turmas
+INSERT INTO ativ_disp_turmas (fk_turma, fk_atividade, data_disponibilizada, data_limite_avaliacao) VALUES
+    (1, 1, '2024-02-15', '2024-02-28'),
+    (2, 2, '2024-08-10', '2024-08-25');
+
+-- Inserindo dados na tabela Avaliacao_aula_aluno
+INSERT INTO avaliacao_aula_aluno (fk_aula, fk_aluno_matriculado, data_avaliacao, nota, descricao) VALUES
+    (1, 1, '2024-02-18', 8, 'Boa aula, conteúdo interessante.'),
+    (2, 1, '2024-02-25', 9, 'Explicação muito clara.');
+
+-- Inserindo dados na tabela Avaliacao_ativ_aluno
+INSERT INTO avaliacao_ativ_aluno (fk_ativ_disp_turmas, fk_aluno, data_avaliacao, nota, descricao) VALUES
+      (1, 2, '2024-02-20', 7, 'Atividade bem formulada.'),
+      (2, 2, '2024-08-15', 8, 'Exigiu um bom entendimento do conteúdo.');
