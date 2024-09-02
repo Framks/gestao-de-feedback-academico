@@ -4,7 +4,7 @@ import PaginaInicio from "./components/PaginaInicio";
 import CriarProfessor from "./components/modelos/professor/Criar";
 import ListarProfessor from "./components/modelos/professor/Listar";
 
-import "./components/modelos/style/style.css"
+import "./components/style/style.css"
 import ListarAlunos from "./components/modelos/aluno/Listar";
 
 const router = createBrowserRouter(
