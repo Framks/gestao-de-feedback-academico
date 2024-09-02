@@ -9,6 +9,16 @@ class ProfessorSevice{
         .then( response => {callback(response.data)})
         .catch(error => console.log(error));
     }
+
+    static postProfessors(novo, callback){
+        axios.post(URL, novo)
+        .then(response => {
+            callback(response.data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
 }
 
 export default ProfessorSevice;

@@ -3,45 +3,42 @@ import ProfessorSevice from "../../services/ProfessorService";
 
 const CriarProfessor = () =>{
 
-    const[nome,setNome] = useState("")
-    const[curso, setCurso] = useState("")
-    const[titulacao, setTitulacao] = useState("GRADUACAO")
-    const [ai, setAi] = useState({es:false, lc:false, md:false,al:false}) //ai = área de interesse
-    const [universidade, setUniversidade] = useState({ifce:false,ufc:false})
+    const[primeiroNome,setPNome] = useState("")
+    const[segundoNome,setSNome] = useState("")
+    const role = "PROFESSOR"
+    const[matricula, setMatricula] = useState(0)
+    const[email, setEmail] = useState("")
+    const[senha, setSenha] = useState("")
+    const[link, setLink] = useState("")
 
-    const handleRadio = (event) => {
-        const reset = {ufc:false,ifce:false}
-        setUniversidade({
-            ...reset,
-            [event.target.value]:event.target.checked
-        })
-    }
-    
-    const handleCheckbox = (event) => {
-        setAi(
-            {
-                ...ai,
-                [event.target.name]:event.target.checked
-            }
-        )
+    const handleInputPNome = (event) => {
+        setPNome(event.target.value)
     }
 
-    const handleInputNome = (event) => {
-        setNome(event.target.value)
+    const handleInputSNome = (event) => {
+        setSNome(event.target.value)
     }
 
-    const handleInputCurso = (event) => {
-        setCurso(event.target.value)
+    const handleInputMatricula = (event) => {
+        setMatricula(event.target.value)
     }
 
-    const handleSelect = (event) => {
-        setTitulacao(event.target.value)
+    const handleInputEmail = (event) => {
+        setEmail(event.target.value)
+    }
+
+    const handleInputSenha =(event) =>{
+        setSenha(event.target.value)
+    }
+
+    const handleInputLink = (event) => {
+        setLink(event.target.value)
     }
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        let professor = { nome: nome, curso: curso, titulacao: titulacao,ai: ai,universidade: universidade }
-        ProfessorSevice.post(professor, (log) => {console.log(log)})
+        let professor = { segundoNome: segundoNome, role:role, primeiroNome: primeiroNome, matricula: matricula, email: email, senha : senha, linkTelegram: link}
+        ProfessorSevice.postProfessors(professor, (log) => {console.log(log)})
     }
     
     return (
@@ -50,136 +47,72 @@ const CriarProfessor = () =>{
             <form className="form-content" onSubmit={handleSubmit}>
 
                 <div className="mb-3">
-                    <label className="form-label" htmlFor="inputNome">Nome</label>
+                    <label className="form-label" htmlFor="inputPNome"> Primeiro Nome</label>
                     <input
                         className="form-control"
                         type="text"
-                        name="nome" 
-                        id="inputNome"
-                        onChange={handleInputNome}
-                    />
-                </div>
-                
-                <div className="mb-3">
-                    <label className="form-label" htmlFor="inputCurso">Curso</label>
-                    <input
-                        className="form-control"
-                        type="text"
-                        name="curso"
-                        id="inputCurso"
-                        onChange={handleInputCurso} 
+                        name="primeiroNome" 
+                        id="inputPNome"
+                        onChange={handleInputPNome}
                     />
                 </div>
 
                 <div className="mb-3">
-                    <label className="form-label" htmlFor="selectTitulacao">Titulação</label> 
-                    <select
-                        className="form-select"
-                        value={titulacao}
-                        id="selectTitulacao"
-                        onChange={handleSelect}
-                    >
-                        <option value="GRADUACAO">GRADUAÇÃO</option>
-                        <option value="MESTRADO">MESTRADO</option>
-                        <option value="DOUTORADO">DOUTORADO</option>
-                    </select>
-                </div>
-
-                <div>
-                <label className="form-label">Áreas de Interesse</label> 
-                <fieldset className="scheduler-border">
-                    <div className="form-check">
-                        <input 
-                            id="idES"
-                            type="checkbox"
-                            className="form-check-input"
-                            checked={ai.es}
-                            onChange={handleCheckbox}
-                            name="es"
-                        />
-                        <label 
-                            htmlFor="idES"
-                            className="form-check-label"
-                        >
-                            Engenharia de Software
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input 
-                            id="idLC"
-                            type="checkbox"
-                            className="form-check-input"
-                            checked={ai.lc}
-                            onChange={handleCheckbox}
-                            name="lc"
-                        />
-                        <label 
-                            htmlFor="idLC"
-                            className="form-check-label"
-                        >
-                            Lógica Computacional
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input 
-                            id="idMC"
-                            type="checkbox"
-                            className="form-check-input"
-                            checked={ai.md}
-                            onChange={handleCheckbox}
-                            name="md"
-                        />
-                        <label 
-                            htmlFor="idMC"
-                            className="form-check-label"
-                        >
-                            Matemática Computacional
-                        </label>
-                    </div>
-                </fieldset>
+                    <label className="form-label" htmlFor="inputSNome"> Segundo Nome</label>
+                    <input
+                        className="form-control"
+                        type="text"
+                        name="segundoNome" 
+                        id="inputSNome"
+                        onChange={handleInputSNome}
+                    />
                 </div>
                 
-                <div>
-                <label className="form-label">Universidade de Origem</label> 
-                <fieldset className="scheduler-border">
-                    <div className="form-check">
-                        <input
-                            id="idUFC"
-                            className="form-check-input" 
-                            type="radio"
-                            name="universidade"
-                            checked={universidade.ufc}
-                            value="ufc"
-                            onChange={handleRadio}
-                        />
-                        <label 
-                            htmlFor="idUFC"
-                            className="form-check-label"
-                        >
-                            Universidade Federal do Ceará
-                        </label>
-                    </div>
-                    
-                    <div className="form-check">
-                        <input 
-                            id="idIFCE"
-                            className="form-check-input"
-                            type="radio"
-                            name="universidade"
-                            checked={universidade.ifce}
-                            value="ifce"
-                            onChange={handleRadio}
-                        />
-                        <label 
-                            htmlFor="idIFCE"
-                            className="form-check-label"
-                        >
-                            Instituto Federal do Ceará
-                        </label>
-                    </div>
-                </fieldset>
+                <div className="mb-3">
+                    <label className="form-label" htmlFor="inputMatricula">Matricula</label>
+                    <input
+                        className="form-control"
+                        type="number"
+                        name="matricula"
+                        id="inputMatricula"
+                        onChange={handleInputMatricula} 
+                    />
                 </div>
 
+                <div className="mb-3">
+                    <label className="form-label" htmlFor="inputEmail">Email</label>
+                    <input
+                        className="form-control"
+                        type="email"
+                        name="email"
+                        id="inputEmail"
+                        onChange={handleInputEmail} 
+                    />
+                </div>
+
+                <div className="mb-3">
+                    <label className="form-label" htmlFor="inputESenha">Senha</label>
+                    <input
+                        className="form-control"
+                        placeholder="Senha"
+                        type="password"
+                        name="senha"
+                        id="inputESenha"
+                        onChange={handleInputSenha} 
+                    />
+                </div>
+
+                <div className="mb-3">
+                    <label className="form-label" htmlFor="inputLink">Link do Telegram</label>
+                    <input
+                        className="form-control"
+                        type="text"
+                        name="link"
+                        id="inputLink"
+                        onChange={handleInputLink} 
+                    />
+                </div>
+                
                 <div className="div-button-submit">
                     <button
                         type="submit"
@@ -189,7 +122,6 @@ const CriarProfessor = () =>{
                         Submeter
                     </button>
                 </div>
-
             </form>
         </div>
         

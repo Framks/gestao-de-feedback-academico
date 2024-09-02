@@ -19,7 +19,6 @@ const ListarProfessor = () => {
   )
 
   const handleLink = (professor)  => {
-    console.log(professor)
     if(professor.hasOwnProperty('linkTelegram') && professor.linkTelegram !== null){
         return(<>{professor.linkTelegram}</>)
     }else{
