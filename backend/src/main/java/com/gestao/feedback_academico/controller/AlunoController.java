@@ -1,24 +1,13 @@
 package com.gestao.feedback_academico.controller;
 
-import com.gestao.feedback_academico.domain.dto.CriarAvaliacaoAtivAlunoDto;
-import com.gestao.feedback_academico.domain.dto.CriarAvaliacaoAulaAlunoDto;
-import com.gestao.feedback_academico.domain.dto.IdTurmaDto;
-import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAtividadeDto;
-import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAulaDto;
-import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAvaliacaoAtivAlunoDto;
+import com.gestao.feedback_academico.domain.dto.CriarUsuarioDto;
+import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesUsuarioDto;
 import com.gestao.feedback_academico.domain.usecase.AlunoService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +21,34 @@ public class AlunoController {
 
     private final AlunoService alunoService;
 
+    @PreAuthorize("hasRole('PROFESSOR') OR hasRole('ADMIN')")
+    @GetMapping("/")
+    public ResponseEntity<List<DetalhesUsuarioDto>> findAll() {
+        return ResponseEntity.ok(alunoService.listar());
+    }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<DetalhesUsuarioDto> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(alunoService.buscarAlunoPorId(id));
+    }
+
+    @PreAuthorize("hasRole('PROFESSOR') OR hasRole('ADMIN')")
+    @PostMapping("/")
+    public ResponseEntity<DetalhesUsuarioDto> criar(@Valid @RequestBody CriarUsuarioDto criarUsuarioDto){
+        return ResponseEntity.ok(alunoService.criar(criarUsuarioDto));
+    }
+
+    @PreAuthorize("hasRole('PROFESSOR') OR hasRole('ADMIN')")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        alunoService.remover(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PreAuthorize("hasRole('PROFESSOR') OR hasRole('ADMIN')")
+    @PutMapping("/{id}")
+    public ResponseEntity<DetalhesUsuarioDto> atualizar(@PathVariable Long id, @RequestBody CriarUsuarioDto criarUsuarioDto){
+        return ResponseEntity.ok(alunoService.atualizar(id, criarUsuarioDto));
+    }
 
 }

@@ -1,10 +1,21 @@
 package com.gestao.feedback_academico.domain.dto.detalhes;
 
-public record DetalhesAtividadeDto(
-        Long id,
-        Long criadorId,
-        String nome,
-        String descricao,
-        Integer peso,
-        Boolean disponivel
-) {}
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class DetalhesAtividadeDto {
+
+    private Long id;
+    private Long criadorId;
+    private String nome;
+    private String descricao;
+    private Integer peso;
+    private Boolean disponivel;
+}
+

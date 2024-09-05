@@ -6,6 +6,7 @@ import com.gestao.feedback_academico.domain.usecase.TurmaService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,11 +25,13 @@ public class TurmaController {
         return  null;
     }
 
+    @PreAuthorize("hasRole(T(com.gestao.feedback_academico.domain.entity.UserRole).ADMIN.name())")
     @GetMapping("/")
     public ResponseEntity<List<DetalhesTurmaDto>> buscarTodos() {
         return  null;
     }
 
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('PROFESSOR')")
     @PostMapping("/")
     public ResponseEntity<DetalhesTurmaDto> criar(@RequestBody @Valid CriarTurmaDto turma) {
         return  null;
