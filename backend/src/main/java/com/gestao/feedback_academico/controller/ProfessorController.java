@@ -20,8 +20,10 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,12 +37,18 @@ public class ProfessorController {
 
     private final ProfessorService professorService;
 
+    @PreAuthorize("hasRole(T(com.gestao.feedback_academico.domain.entity.UserRole).ADMIN.name())")
     @GetMapping("/")
     public ResponseEntity<List<DetalhesUsuarioDto>> getAllProfessores(){
         List<DetalhesUsuarioDto> professores = professorService.listar();
         return ResponseEntity.ok(professores);
     }
 
+    @PreAuthorize("hasRole(T(com.gestao.feedback_academico.domain.entity.UserRole).ADMIN.name())")
+    @PostMapping("/")
+    public ResponseEntity<DetalhesUsuarioDto> postProfessor(@RequestBody @Valid CriarUsuarioDto dto){
+        return ResponseEntity.ok(professorService.criar(dto));
+    }
 
 
 }

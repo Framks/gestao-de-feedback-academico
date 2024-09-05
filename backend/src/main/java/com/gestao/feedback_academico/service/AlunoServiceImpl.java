@@ -31,7 +31,7 @@ public class AlunoServiceImpl implements AlunoService {
     }
 
     @Override
-    public DetalhesUsuarioDto atualizar(CriarUsuarioDto user) {
+    public DetalhesUsuarioDto atualizar(Long id, CriarUsuarioDto user) {
         return null;
     }
 

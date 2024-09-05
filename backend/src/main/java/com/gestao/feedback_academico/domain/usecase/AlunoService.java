@@ -18,7 +18,7 @@ import java.util.List;
 public interface AlunoService {
 
     DetalhesUsuarioDto criar(CriarUsuarioDto user);
-    DetalhesUsuarioDto atualizar(CriarUsuarioDto user);
+    DetalhesUsuarioDto atualizar(Long id, CriarUsuarioDto user);
     void remover(Long id);
     DetalhesUsuarioDto buscarAlunoPorId(Long id);
     List<DetalhesUsuarioDto> listar();

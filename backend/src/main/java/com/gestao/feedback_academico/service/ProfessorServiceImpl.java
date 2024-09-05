@@ -42,7 +42,10 @@ public class ProfessorServiceImpl implements ProfessorService {
 
     @Override
     public DetalhesUsuarioDto criar(CriarUsuarioDto novoProfessor) {
-        return null;
+        User user = this.modelMap.map(novoProfessor, User.class);
+        professorRepository.save(user);
+        DetalhesUsuarioDto result = this.modelMap.map(professorRepository.findByEmail(user.getEmail()).orElseThrow(), DetalhesUsuarioDto.class);
+        return result;
     }
 
     @Override

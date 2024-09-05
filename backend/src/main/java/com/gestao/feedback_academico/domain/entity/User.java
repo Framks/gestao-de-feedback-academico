@@ -12,6 +12,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,7 +27,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "usuario")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,6 +64,37 @@ public class User {
         this.role = role;
     }
 
+
+    @Override
+    public String getPassword() {
+        return this.senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
     /**
      * Retorna as autoridades concedidas ao usuário com base no seu papel.
      *
@@ -66,21 +105,22 @@ public class User {
      *
      * @return Uma coleção de autoridades concedidas ao usuário.
      */
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+   @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+       List<SimpleGrantedAuthority> authorities;
+       authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_"+this.role.name()));
 //        if (this.role == UserRole.ADMIN) {
-//            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+//            authorities.add(new SimpleGrantedAuthority("ADMIN"));
 //            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 //        } else if (this.role == UserRole.PROFESSOR) {
-//            authorities.add(new SimpleGrantedAuthority("ROLE_PROFESSOR"));
+//            authorities.add(new SimpleGrantedAuthority("PROFESSOR"));
 //            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 //        } else if (this.role == UserRole.ALUNO) {
-//            authorities.add(new SimpleGrantedAuthority("ROLE_ALUNO"));
+//            authorities.add(new SimpleGrantedAuthority("ALUNO"));
 //            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 //        }
-//
-//        return authorities;
-//    }
+
+        return authorities;
+   }
 
 }

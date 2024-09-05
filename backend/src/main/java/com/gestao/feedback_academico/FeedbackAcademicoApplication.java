@@ -13,10 +13,4 @@ public class FeedbackAcademicoApplication {
 		SpringApplication.run(FeedbackAcademicoApplication.class, args);
 	}
 
-	// isso tem que esta em uma classe de configurção de aplicação
-	@Bean
-	public ModelMapper modelMapper() {
-		return new ModelMapper();
-	}
-
 }

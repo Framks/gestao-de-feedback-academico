@@ -122,9 +122,9 @@ CREATE TABLE avaliacao_ativ_aluno (
 
 -- Inserindo dados na tabela Usuario
 INSERT INTO usuario (role, p_nome, s_nome, email, senha, matricula, link_telegram) VALUES
-        ('ADMIN', 'Joao', 'Silva', 'joao.silva@admin.com', 'senha123', 20230102, NULL),
-        ('ALUNO', 'Maria', 'Oliveira', 'maria.oliveira@aluno.com', 'senha123', 20230101, 'https://t.me/maria_oliveira'),
-        ('PROFESSOR', 'Carlos', 'Santos', 'carlos.santos@prof.com', 'senha123', 20230105, 'https://t.me/carlos_santos');
+        ('ADMIN', 'Joao', 'Silva', 'joao.silva@admin.com', '$2a$10$eBxlb4G7.aF3Y2qAelcN8u0YplcDsxaiKOLPBRDHaTq4LZYbk7e2O', 20230102, NULL),
+        ('ALUNO', 'Maria', 'Oliveira', 'maria.oliveira@aluno.com', '$2a$10$eBxlb4G7.aF3Y2qAelcN8u0YplcDsxaiKOLPBRDHaTq4LZYbk7e2O', 20230101, 'https://t.me/maria_oliveira'),
+        ('PROFESSOR', 'Carlos', 'Santos', 'carlos.santos@prof.com', '$2a$10$eBxlb4G7.aF3Y2qAelcN8u0YplcDsxaiKOLPBRDHaTq4LZYbk7e2O', 20230105, 'https://t.me/carlos_santos');
 
 -- Inserindo dados na tabela Turma
 INSERT INTO turma (fk_professor, codigo, disciplina, semestre, ano) VALUES

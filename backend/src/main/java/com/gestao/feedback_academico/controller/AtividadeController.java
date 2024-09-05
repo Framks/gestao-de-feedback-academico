@@ -6,6 +6,7 @@ import com.gestao.feedback_academico.domain.usecase.AtividadeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,8 @@ public class AtividadeController {
         return null;
     }
 
-    @PostMapping("/")
+    @PreAuthorize("hasRole('PROFESSOR')")
+    @PostMapping("/criar")
     public ResponseEntity<DetalhesAtividadeDto> Criar(@RequestBody CriarAtividadeDto criarAtividadeDto) {
         return null;
     }

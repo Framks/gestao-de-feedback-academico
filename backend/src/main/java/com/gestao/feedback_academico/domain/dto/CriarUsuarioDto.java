@@ -15,15 +15,15 @@ import lombok.Setter;
 @Setter
 public class CriarUsuarioDto {
         @NotNull(message = "O papel do usuário não pode ser nulo.")
-        private UserRole usrRole;
+        private UserRole role;
 
         @NotBlank(message = "O primeiro nome não pode ser vazio.")
         @Size(max = 100, message = "O primeiro nome não pode ter mais que 100 caracteres.")
-        String pNome;
+        String primeiroNome;
 
         @NotBlank(message = "O sobrenome não pode ser vazio.")
         @Size(max = 100, message = "O sobrenome não pode ter mais que 100 caracteres.")
-        private String sNome;
+        private String segundoNome;
 
         @NotBlank(message = "O email não pode ser vazio.")
         @Size(max = 100, message = "O email não pode ter mais que 100 caracteres.")
