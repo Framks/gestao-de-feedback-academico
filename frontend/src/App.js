@@ -3,22 +3,53 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PaginaInicio from "./components/PaginaInicio";
 import CriarProfessor from "./components/modelos/professor/Criar";
 import ListarProfessor from "./components/modelos/professor/Listar";
-
+import "./components/services/TokenToRequest";
+import PrivateRoute from "./components/services/PrivateRoute";
 import "./components/style/style.css"
 import ListarAlunos from "./components/modelos/aluno/Listar";
+import RoleProtectedRoute from "./components/services/RoleProtectedRoute"
+import Login from "./components/login/Login"
 
 const router = createBrowserRouter(
     [
         {
-            path: "/", element:<Home/>,
+            path: "/login", element:<Login/>,
+        },
+        {
+            path: "/", element: (
+                <PrivateRoute>
+                    <Home />
+                </PrivateRoute>
+            ),
             children:[
                 {index:true, element:<PaginaInicio/>},
-                {path: "professor/criar/", element:<CriarProfessor/>},
+                {
+                    path: "professor/criar/",
+                    element:(
+                        <RoleProtectedRoute requiredRole={["ADMIN"]}>
+                            <CriarProfessor />
+                        </RoleProtectedRoute>
+                    )
+                },
                 //{path: "professor/editar/", element:<EditarProfessor/>},
-                {path: "professor/listar/", element:<ListarProfessor/>},
+                {
+                    path: "professor/listar/",
+                    element:(
+                        <RoleProtectedRoute allowedRoles={["ADMIN"]}>
+                            <ListarProfessor/>
+                        </RoleProtectedRoute>
+                    )
+                    
+                },
 
                 //{path: "aluno/criar/", element:<CriarAlunos/>},
-                {path: "aluno/listar/", element:<ListarAlunos/>}
+                {
+                    path: "aluno/listar/",
+                    element:
+                    <RoleProtectedRoute allowedRoles={["professor", "admin"]}>
+                        <ListarAlunos/>
+                    </RoleProtectedRoute>
+                }
                 //{path: "aluno/editar/", element:<EditarAluno/>},
 
                 //{path: "atividade/avaliacoes/", element:</>},
