@@ -8,9 +8,7 @@ import org.springframework.ui.ModelMap;
 
 @SpringBootApplication
 public class FeedbackAcademicoApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(FeedbackAcademicoApplication.class, args);
 	}
-
 }
