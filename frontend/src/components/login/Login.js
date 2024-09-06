@@ -10,11 +10,10 @@ const Login = () => {
     const handleLogin = (e) => {
         e.preventDefault();
         AuthService.login({username, password}, (data) => {
-            console.log(data)
             sessionStorage.setItem("token", data)
-            navigate("/"); // Redireciona para a página inicial
+            navigate("/");
         })
-        navigate("/"); // Redireciona para a página inicial
+        navigate("/");
     };
 
     return (

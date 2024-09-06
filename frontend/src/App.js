@@ -9,6 +9,7 @@ import "./components/style/style.css"
 import ListarAlunos from "./components/modelos/aluno/Listar";
 import RoleProtectedRoute from "./components/services/RoleProtectedRoute"
 import Login from "./components/login/Login"
+import EditarProfessor from "./components/modelos/professor/Editar"
 
 const router = createBrowserRouter(
     [
@@ -26,12 +27,17 @@ const router = createBrowserRouter(
                 {
                     path: "professor/criar/",
                     element:(
-                        <RoleProtectedRoute requiredRole={["ADMIN"]}>
+                        <RoleProtectedRoute allowedRoles={["ADMIN"]}>
                             <CriarProfessor />
                         </RoleProtectedRoute>
                     )
                 },
-                //{path: "professor/editar/", element:<EditarProfessor/>},
+                {
+                    path: "professor/editar/:id",
+                    element:
+                    <RoleProtectedRoute allowedRoles={["ADMIN"]}>
+                        <EditarProfessor/>
+                    </RoleProtectedRoute>},
                 {
                     path: "professor/listar/",
                     element:(

@@ -45,3 +45,7 @@ fieldset.scheduler-border {
     border-color: #a3a5a7 !important; /* Cor da borda ao focar */
     box-shadow: 0 0 0 .2rem rgba(188, 191, 194, 0.25) !important; /* Sombra ao focar */
 }
+
+.alter-senha{
+    margin-left: 10px;
+}

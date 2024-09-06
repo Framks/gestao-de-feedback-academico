@@ -13,11 +13,34 @@ class ProfessorSevice{
     static postProfessors(novo, callback){
         axios.post(URL, novo)
         .then(response => {
-            callback(response.data)
+            callback(response)
         })
         .catch(error => {
             console.log(error)
+            callback(null)
         })
+    }
+
+    static deleteProfessor(id, callback){
+        axios.delete(URL+`${id}`).then((response) => {
+            callback(response)
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
+
+    static getProfessorById(id, callback) {
+        axios.get(URL+`${id}`).then(
+            (response) => callback(response)
+        ).catch((error) => console.log(error))
+    }
+
+    static alterProfessors({id, professor}, callback){
+        axios.put(URL+`${id}`,professor)
+        .then((response) => {
+            callback(response)
+        })
+        .catch((error) => console.log(error))
     }
 }
 
