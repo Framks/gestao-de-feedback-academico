@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ProfessorSevice from "../../services/ProfessorService";
+import { useNavigate } from "react-router-dom";
 
 const CriarProfessor = () =>{
 
@@ -10,6 +11,7 @@ const CriarProfessor = () =>{
     const[email, setEmail] = useState("")
     const[senha, setSenha] = useState("")
     const[link, setLink] = useState("")
+    const navigate = useNavigate();
 
     const handleInputPNome = (event) => {
         setPNome(event.target.value)
@@ -38,7 +40,16 @@ const CriarProfessor = () =>{
     const handleSubmit = (event) => {
         event.preventDefault()
         let professor = { segundoNome: segundoNome, role:role, primeiroNome: primeiroNome, matricula: matricula, email: email, senha : senha, linkTelegram: link}
-        ProfessorSevice.postProfessors(professor, (log) => {console.log(log)})
+        ProfessorSevice.postProfessors(professor,
+            (log) => {
+                console.log(log.status)
+                if(log.status == 200){
+                    alert("PROFESSOR ADCIONADO")
+                    navigate("/professor/listar")
+                }else if(log.status == 403){
+                    navigate("/")
+                }
+        })
     }
     
     return (
