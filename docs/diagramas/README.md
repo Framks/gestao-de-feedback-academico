@@ -29,11 +29,22 @@ O diagrama de Atividade de acordo com os requisitos elicitados do projeto esta d
 
 ### Arquitetura do sistema
 
-Estamos desenvolvendo uma aplicação web que utiliza uma arquitetura de microsserviços. O front-end é implementado em React e será executado em um container Docker separado. O back-end é desenvolvido em Java, utilizando o framework Spring Boot, e também será executado em um container distinto. O banco de dados escolhido para a aplicação é o PostgreSQL, que será utilizado para armazenar os dados. Essa separação facilita a escalabilidade, manutenção e implantação da aplicação, além de permitir uma clara divisão de responsabilidades entre a interface de usuário e a lógica de negócio.
+A arquitetura do sistema consiste em uma arquitetura de três camadas que é uma estrutura que separa as responsabilidades do sistema em três partes, o que torna o desenvolvimento mais organizado, flexível e escalável.
 
-- [Link para o Diagrama da Arquitetura do sistema](https://drive.google.com/file/d/1aA-7tzJ8oJapOLWOq9kWKD3yIyrNa6Ze/view?usp=drive_link)
-  
-  > **Nota:** Este diagrama pode ser sujeito a alterações conforme o projeto avança e novas necessidades surgem.
+![Diagrama da Arquitetura do sistema](images/Controllers.png)
+> **Nota:** Este diagrama pode ser sujeito a alterações conforme o projeto avança e novas necessidades surgem.
+
+### 1. Camada de Apresentação(Front end)
+
+Esta é a parte que o usuário vê e interage diretamente. Aqui utilizaremos o React como framework para nos ajudar no desenvolvimento e que fara conexão com a Rest Api.
+
+### 2. Camada de Lógica de Negócio(Back end)
+
+É o cérebro da aplicação. Aqui está toda a lógica que governa como os dados devem ser manipulados e processados. Utilizamos Uma Api Rest com o Framework Spring Boot para receber requisições do front-end, processar e decidir o que fazer a seguir, como armazenar ou consultar dados no banco de dados. Aqui também fazemos uso do JWt(token para requisições) e definimos resgras para usuários.
+
+### 3. Camada de Dados (Banco de dados)
+
+É a camada responsável por fazer a percistencia dos dados e que fiquem seguras se comunicando unicamente com o back end. Criando em PostgreSql por ser um projeto consistente e open source, tendo uma comunidade grande e dedica. Garantindo a confiabilidade.
 
 ### Diagramas de Entidade
 
