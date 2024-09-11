@@ -3,7 +3,9 @@ name: Continuos Integration
 on:
   push:
     branches:
-      - main
+      - main  # Será executado apenas no branch main
+    paths:
+      - 'backend/**'
 
 jobs:
   continuos-integration:
@@ -11,6 +13,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: backend
 
       - name: Set up JDK 11  # Configura o JDK
         uses: actions/setup-java@v3
@@ -26,10 +30,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Build with Maven  # Build do projeto com Maven
+      - name: Build with Maven
+        working-directory: ./backend  # Define a pasta do backend como diretório de trabalho
         run: mvn clean install
 
-      - name: Run tests  # Executar testes
+      - name: Run tests
+        working-directory: ./backend  # Define a pasta do backend como diretório de trabalho
         run: mvn test
 
       - name: Deploy to Heroku  # Deploy no Heroku
