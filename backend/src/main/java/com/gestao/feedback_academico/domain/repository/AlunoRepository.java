@@ -12,4 +12,6 @@ import java.util.Optional;
 public interface AlunoRepository extends JpaRepository<User, Long> {
 
     Optional<List<User>> findAllByRole(UserRole role);
+
+    Optional<User> findByEmail(String email);
 }

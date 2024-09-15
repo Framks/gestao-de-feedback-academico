@@ -6,8 +6,8 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_DB: feedbackAcademico
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_USER: "postgres" # postgres name production= ProducaoTestApi
+      POSTGRES_PASSWORD: "postgres" # ProducaoTestApi@9090
     volumes:
       - ./db/create-db-feedback-academico.sql:/docker-entrypoint-initdb.d/create-db-feedback-academico.sql
       - feedback-academico_data:/var/lib/postgresql/data

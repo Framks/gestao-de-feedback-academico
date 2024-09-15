@@ -44,7 +44,8 @@ public class ProfessorServiceImpl implements ProfessorService {
         User user = this.modelMap.map(novoProfessor, User.class);
         user.setSenha(passwordEncoder.encode(novoProfessor.getSenha()));
         professorRepository.save(user);
-        return this.modelMap.map(professorRepository.findByEmail(user.getEmail()).orElseThrow(), DetalhesUsuarioDto.class);
+        User novo = professorRepository.findByEmail(user.getEmail()).orElseThrow();
+        return this.modelMap.map(novo, DetalhesUsuarioDto.class);
     }
 
     @Override
