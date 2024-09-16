@@ -1,15 +1,7 @@
 package com.gestao.feedback_academico.service;
 
-import com.gestao.feedback_academico.domain.dto.CriarAtividadeDto;
-import com.gestao.feedback_academico.domain.dto.CriarAulaDto;
-import com.gestao.feedback_academico.domain.dto.CriarTurmaDto;
 import com.gestao.feedback_academico.domain.dto.CriarUsuarioDto;
-import com.gestao.feedback_academico.domain.dto.IdTurmaDto;
-import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAtividadeDto;
-import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAulaDto;
-import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAvaliacaoAtivAlunoDto;
-import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesAvaliacaoAulaAlunoDto;
-import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesTurmaDto;
+import com.gestao.feedback_academico.domain.dto.UpdateUser;
 import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesUsuarioDto;
 import com.gestao.feedback_academico.domain.entity.User;
 import com.gestao.feedback_academico.domain.entity.UserRole;
@@ -17,8 +9,8 @@ import com.gestao.feedback_academico.domain.repository.ProfessorRepository;
 import com.gestao.feedback_academico.domain.usecase.ProfessorService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
 
 import java.util.List;
 
@@ -28,6 +20,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 
     private ProfessorRepository professorRepository;
     private ModelMapper modelMap;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<DetalhesUsuarioDto> listar() {
@@ -41,20 +34,34 @@ public class ProfessorServiceImpl implements ProfessorService {
     }
 
     @Override
-    public DetalhesUsuarioDto criar(CriarUsuarioDto novoProfessor) {
-        User user = this.modelMap.map(novoProfessor, User.class);
-        professorRepository.save(user);
-        DetalhesUsuarioDto result = this.modelMap.map(professorRepository.findByEmail(user.getEmail()).orElseThrow(), DetalhesUsuarioDto.class);
-        return result;
+    public DetalhesUsuarioDto buscarPorId(Long id) {
+        User usuario = this.professorRepository.findById(id).orElseThrow();
+        return this.modelMap.map(usuario, DetalhesUsuarioDto.class);
     }
 
     @Override
-    public DetalhesUsuarioDto atualizar(DetalhesUsuarioDto detalhesUsuarioDto) {
-        return null;
+    public DetalhesUsuarioDto criar(CriarUsuarioDto novoProfessor) {
+        User user = this.modelMap.map(novoProfessor, User.class);
+        user.setSenha(passwordEncoder.encode(novoProfessor.getSenha()));
+        professorRepository.save(user);
+        User novo = professorRepository.findByEmail(user.getEmail()).orElseThrow();
+        return this.modelMap.map(novo, DetalhesUsuarioDto.class);
+    }
+
+    @Override
+    public DetalhesUsuarioDto atualizar(Long id, UpdateUser professor) {
+        User user = this.professorRepository.findById(id).orElseThrow();
+        user.setPrimeiroNome(professor.getPrimeiroNome());
+        user.setSegundoNome(professor.getSegundoNome());
+        user.setEmail(professor.getEmail());
+        user.setLinkTelegram(professor.getLinkTelegram());
+        user.setMatricula(professor.getMatricula());
+        professorRepository.save(user);
+        return this.modelMap.map(user, DetalhesUsuarioDto.class);
     }
 
     @Override
     public void deletar(Long id) {
-
+        this.professorRepository.deleteById(id);
     }
 }

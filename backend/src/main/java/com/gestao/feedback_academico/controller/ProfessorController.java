@@ -1,27 +1,12 @@
 package com.gestao.feedback_academico.controller;
 
 
-import com.gestao.feedback_academico.domain.dto.CriarAtividadeDto;
-import com.gestao.feedback_academico.domain.dto.CriarAulaDto;
-import com.gestao.feedback_academico.domain.dto.CriarTurmaDto;
-import com.gestao.feedback_academico.domain.dto.CriarUsuarioDto;
-import com.gestao.feedback_academico.domain.dto.IdTurmaDto;
+import com.gestao.feedback_academico.domain.dto.*;
 import com.gestao.feedback_academico.domain.dto.detalhes.*;
-import com.gestao.feedback_academico.domain.entity.User;
 import com.gestao.feedback_academico.domain.usecase.ProfessorService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Response;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -37,6 +22,12 @@ public class ProfessorController {
 
     private final ProfessorService professorService;
 
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<DetalhesUsuarioDto> getProfessorById(@PathVariable @Positive Long id) {
+        return ResponseEntity.ok(this.professorService.buscarPorId(id));
+    }
+
     @PreAuthorize("hasRole(T(com.gestao.feedback_academico.domain.entity.UserRole).ADMIN.name())")
     @GetMapping("/")
     public ResponseEntity<List<DetalhesUsuarioDto>> getAllProfessores(){
@@ -50,5 +41,17 @@ public class ProfessorController {
         return ResponseEntity.ok(professorService.criar(dto));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProfessor(@PathVariable Long id){
+        professorService.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/{id}")
+    public ResponseEntity<DetalhesUsuarioDto> atualizarProfessor(@PathVariable Long id, @RequestBody @Valid UpdateUser dto){
+        this.professorService.atualizar(id, dto);
+        return ResponseEntity.ok(this.professorService.buscarPorId(id));
+    }
 }

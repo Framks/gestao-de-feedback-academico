@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         (authorize) -> authorize.requestMatchers(AUTH_WHITELIST).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/login", HttpMethod.POST.name())).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/", HttpMethod.GET.name())).permitAll()
                                 .anyRequest().authenticated()
                 ).authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

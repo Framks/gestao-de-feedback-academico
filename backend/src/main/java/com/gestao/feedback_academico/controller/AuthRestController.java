@@ -21,21 +21,18 @@ public class AuthRestController {
     private final UserRespository userRespository;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtService;
+    private final PasswordEncoder passwordEncoder;
 
-    /// DEPOIS DE VERIFICAR TEM QUE REMOVER:
-    private final PasswordEncoder encoder;
-
-    public AuthRestController(UserRespository userRespository, AuthenticationManager authenticationManager, JwtUtil jwtService, PasswordEncoder encoder) {
+    public AuthRestController(UserRespository userRespository, AuthenticationManager authenticationManager, JwtUtil jwtService, PasswordEncoder passwordEncoder) {
         this.userRespository = userRespository;
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
-        this.encoder = encoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping
     public String login(@RequestBody AuthRequest authRequest) {
-        System.out.println(authRequest);
-        System.out.println(encoder.encode(authRequest.senha()));
+        System.out.println(authRequest.senha()+ " encode \n "+ this.passwordEncoder.encode(authRequest.senha()));
         Authentication authentication = new UsernamePasswordAuthenticationToken(authRequest.email(), authRequest.senha());
         this.authenticationManager.authenticate(authentication);
         User usuario = this.userRespository.findByEmail(authRequest.email()).orElseThrow(() -> new RuntimeException("Error na busca de um usuario"));

@@ -1,16 +1,43 @@
 services:
+  app-feedback-academico:
+    build: .
+    container_name: app-api-feedback-academinco
+    image: app-feedabk-backend
+    depends_on:
+      - db-feedback-academico
+    ports:
+      - "8080:8080"
+    environment:
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: db-feedback-academico
+      DB_PORT: 5432
+      DB_NAME: feedbackAcademico
+    networks:
+      - my_network
+
   db-feedback-academico:
     image: postgres:latest
-    container_name: db-api-feedback-academico
+    container_name: db-feedback-academico
     ports:
       - "5432:5432"
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "feedbackAcademico", "-U", "postgres" ]
+      timeout: 5s #tempo da tentativa
+      interval: 5s #intervalo entre elas
+      retries: 3 #qtd
     environment:
       POSTGRES_DB: feedbackAcademico
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     volumes:
       - ./db/create-db-feedback-academico.sql:/docker-entrypoint-initdb.d/create-db-feedback-academico.sql
       - feedback-academico_data:/var/lib/postgresql/data
+    networks:
+      - my_network
 
 volumes:
  feedback-academico_data:
+
+networks:
+  my_network: {}
