@@ -32,9 +32,9 @@ jobs:
         working-directory: ./backend  # Define a pasta do backend como diretório de trabalho
         run: mvn clean install
 
-      - name: Run tests
-        working-directory: ./backend  # Define a pasta do backend como diretório de trabalho
-        run: mvn test
+      # - name: Run tests
+      #   working-directory: ./backend  # Define a pasta do backend como diretório de trabalho
+      #   run: mvn test
 
       - name: set up Doker Buildx
         uses: docker/setup-buildx-action@v2
