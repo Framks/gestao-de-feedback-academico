@@ -32,7 +32,7 @@ public class Atividade {
     @JoinColumn(name = "fk_criador", nullable = false)
     private User criador;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, nullable = false, unique = true)
     private String nome;
 
     @Column(length = 300)
