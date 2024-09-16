@@ -1,6 +1,6 @@
 import axios  from "axios";
 
-const URL = "http://localhost:8080/aluno/"
+const URL = "https://gestao-de-feedback-academico.onrender.com"
 
 class AlunoSevice{
 
