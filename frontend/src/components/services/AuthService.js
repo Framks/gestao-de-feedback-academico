@@ -1,7 +1,7 @@
 import axios from "axios";
 import {jwtDecode} from "jwt-decode";
 
-const URL = "http://localhost:8080"
+const URL = "https://gestao-de-feedback-academico.onrender.com"
 
 class AuthService{
 

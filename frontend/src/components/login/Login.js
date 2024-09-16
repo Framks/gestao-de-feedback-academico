@@ -10,11 +10,10 @@ const Login = () => {
     const handleLogin = (e) => {
         e.preventDefault();
         AuthService.login({username, password}, (data) => {
-            console.log(data)
             sessionStorage.setItem("token", data)
-            navigate("/"); // Redireciona para a página inicial
+            navigate("/");
         })
-        navigate("/"); // Redireciona para a página inicial
+        navigate("/");
     };
 
     return (
@@ -45,6 +44,7 @@ const Login = () => {
                 </div>
                 <div className="div-button-submit mt-3">
                         <button
+                            id="submit-login"
                             type="submit"
                             className="btn btn-light"
                         >

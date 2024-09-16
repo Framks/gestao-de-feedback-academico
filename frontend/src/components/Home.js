@@ -102,7 +102,7 @@ const Home = () => {
                         </ul>
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <button className="btn btn-danger" onClick={() => logout()}>Logout</button>
+                                <button id="logout-button" className="btn btn-danger" onClick={() => logout()}>Logout</button>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link text-white" to="/perfil">Perfil</Link>
