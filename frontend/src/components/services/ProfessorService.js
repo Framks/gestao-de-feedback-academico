@@ -1,6 +1,6 @@
 import axios  from "axios";
 
-const URL = "http://localhost:8080/professor/"
+const URL = "https://gestao-de-feedback-academico.onrender.com/professor/"
 
 class ProfessorSevice{
 
