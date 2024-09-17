@@ -2,6 +2,14 @@
 
 Esta pasta contém diversos tipos de documentação relacionada ao projeto, incluindo explicações sobre seu propósito, arquitetura, dependências, configuração, execução e outras informações importantes para usuários e colaboradores.
 
+## Implementação e Produção
+
+Para fazer o login é nescessário uma das credencias:
+- usuario: joao.silva@admin.com
+- password: senha123
+
+Link para a implmentação = [gestao-de-feedback-academico.vercel.app/](gestao-de-feedback-academico.vercel.app/)
+
 ## Documentação Disponível
 
 1. [**Documentação do Projeto**](#documentação-do-projeto): 
