@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface AulaService {
 
-    void criar(CriarAulaDto aula);
+    DetalhesAulaDto criar(CriarAulaDto aula);
     void remover(Long id);
     DetalhesAulaDto buscarPorId(Long id);
     List<DetalhesAulaDto> listar();
-    void atualizar(Long Id, CriarAulaDto updateAula); // tipo de aula tem que ser mudado para um update aula
+    DetalhesAulaDto atualizar(Long Id, CriarAulaDto updateAula); // tipo de aula tem que ser mudado para um update aula
 }

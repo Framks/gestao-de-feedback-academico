@@ -24,7 +24,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"data_ocorreu", "fk_turma"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"data_ocorreu", "turma"}))
 public class Aula {
 
     @Id
@@ -32,7 +32,7 @@ public class Aula {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "fk_turma", nullable = false)
+    @JoinColumn(nullable = false)
     private Turma turma;
 
     @Column(name = "data_ocorreu", nullable = false)
