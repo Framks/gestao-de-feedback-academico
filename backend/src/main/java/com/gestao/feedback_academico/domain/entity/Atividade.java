@@ -21,7 +21,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "uk_nome"))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "nome"))
 public class Atividade {
 
     @Id
@@ -29,7 +29,7 @@ public class Atividade {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "fk_criador", nullable = false)
+    @JoinColumn(name = "criador", nullable = false)
     private User criador;
 
     @Column(length = 100, nullable = false)

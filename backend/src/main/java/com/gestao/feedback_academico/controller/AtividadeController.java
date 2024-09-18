@@ -21,12 +21,18 @@ public class AtividadeController {
 
     @GetMapping("/")
     public ResponseEntity<List<DetalhesAtividadeDto>> listar() {
-        return null;
+        return ResponseEntity.ok(atividadeService.listar());
     }
 
     @PreAuthorize("hasRole('PROFESSOR')")
     @PostMapping("/criar")
     public ResponseEntity<DetalhesAtividadeDto> Criar(@RequestBody CriarAtividadeDto criarAtividadeDto) {
-        return null;
+        return ResponseEntity.ok(atividadeService.criar(criarAtividadeDto));
+    }
+
+    @PreAuthorize("hasRole('PROFESSOR') OR hasRole('ADMIN')")
+    @GetMapping("/{id}")
+    public ResponseEntity<DetalhesAtividadeDto> buscar(@PathVariable Long id) {
+        return ResponseEntity.ok(atividadeService.buscarPorId(id));
     }
 }
