@@ -32,7 +32,7 @@ public class Aula {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(name= "turma", nullable = false)
     private Turma turma;
 
     @Column(name = "data_ocorreu", nullable = false)

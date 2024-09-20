@@ -19,7 +19,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"fk_aluno", "semestre", "ano"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"aluno", "semestre", "ano"}))
 public class AlunoMatriculado {
 
     @Id
@@ -27,11 +27,11 @@ public class AlunoMatriculado {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "fk_aluno", nullable = false)
+    @JoinColumn(name = "aluno", nullable = false)
     private User aluno;
 
     @ManyToOne
-    @JoinColumn(name = "fk_turma", nullable = false)
+    @JoinColumn(name = "turma", nullable = false)
     private Turma turma;
 
     @Column(nullable = false)

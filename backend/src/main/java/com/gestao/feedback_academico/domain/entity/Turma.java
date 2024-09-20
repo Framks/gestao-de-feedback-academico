@@ -28,7 +28,7 @@ public class Turma {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "fk_professor", nullable = false)
+    @JoinColumn(name = "professor", nullable = false)
     private User professor;
 
     @Column(name = "codigo", length = 50, nullable = false)

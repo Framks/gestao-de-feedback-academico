@@ -23,7 +23,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"fk_turma", "fk_atividade"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"turma", "atividade"}))
 public class AtivDispTurmas {
 
     @Id
@@ -31,11 +31,11 @@ public class AtivDispTurmas {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "fk_turma", nullable = false)
+    @JoinColumn(name = "turma", nullable = false)
     private Turma turma;
 
     @ManyToOne
-    @JoinColumn(name = "fk_atividade", nullable = false)
+    @JoinColumn(name = "atividade", nullable = false)
     private Atividade atividade;
 
     @Column(name = "data_disponibilizada", nullable = false)

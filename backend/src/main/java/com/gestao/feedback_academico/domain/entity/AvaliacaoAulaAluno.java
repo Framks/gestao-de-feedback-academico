@@ -23,7 +23,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"fk_aula", "fk_aluno_matriculado"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"aula", "aluno_matriculado"}))
 public class AvaliacaoAulaAluno {
 
     @Id
@@ -31,11 +31,11 @@ public class AvaliacaoAulaAluno {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "fk_aula", nullable = false)
+    @JoinColumn(name = "aula", nullable = false)
     private Aula aula;
 
     @ManyToOne
-    @JoinColumn(name = "fk_aluno_matriculado", nullable = false)
+    @JoinColumn(name = "aluno_matriculado", nullable = false)
     private AlunoMatriculado alunoMatriculado;
 
     @Column(name = "data_avaliacao", nullable = false)

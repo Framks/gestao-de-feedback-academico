@@ -1,11 +1,12 @@
 package com.gestao.feedback_academico.service;
 
-import com.gestao.feedback_academico.domain.dto.CriarUsuarioDto;
-import com.gestao.feedback_academico.domain.dto.detalhes.DetalhesUsuarioDto;
+import com.gestao.feedback_academico.application.service.ProfessorServiceImpl;
+import com.gestao.feedback_academico.interfaces.dto.CriarUsuarioDto;
+import com.gestao.feedback_academico.interfaces.dto.detalhes.DetalhesUsuarioDto;
 import com.gestao.feedback_academico.domain.entity.User;
 import com.gestao.feedback_academico.domain.entity.UserRole;
-import com.gestao.feedback_academico.domain.repository.ProfessorRepository;
-import com.gestao.feedback_academico.domain.usecase.ProfessorService;
+import com.gestao.feedback_academico.interfaces.repository.ProfessorRepository;
+import com.gestao.feedback_academico.application.usecase.ProfessorService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

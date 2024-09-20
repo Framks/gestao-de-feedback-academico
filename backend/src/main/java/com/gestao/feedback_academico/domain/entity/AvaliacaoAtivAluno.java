@@ -15,7 +15,7 @@ import jakarta.persistence.UniqueConstraint;
 import java.util.Date;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"fk_ativ_disp_turmas", "fk_aluno"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"ativ_disp_turmas", "aluno"}))
 public class AvaliacaoAtivAluno {
 
     @Id
@@ -23,11 +23,11 @@ public class AvaliacaoAtivAluno {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "fk_ativ_disp_turmas", nullable = false)
+    @JoinColumn(name = "ativ_disp_turmas", nullable = false)
     private AtivDispTurmas atividadeDisponibilizada;
 
     @ManyToOne
-    @JoinColumn(name = "fk_aluno", nullable = false)
+    @JoinColumn(name = "aluno", nullable = false)
     private User aluno;
 
     @Column(name = "data_avaliacao", nullable = false)
