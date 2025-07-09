@@ -43,10 +43,10 @@ const CriarProfessor = () =>{
         ProfessorSevice.postProfessors(professor,
             (log) => {
                 console.log(log.status)
-                if(log.status == 200){
+                if(log.status === 200){
                     alert("PROFESSOR ADCIONADO")
                     navigate("/professor/listar")
-                }else if(log.status == 403){
+                }else if(log.status === 403){
                     navigate("/")
                 }
         })

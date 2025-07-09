@@ -16,9 +16,8 @@ const EditarProfessor = () => {
     useEffect(
         () => {
             ProfessorSevice.getProfessorById(id,(response) => {
-                if(response.status == 200){
+                if(response.status === 200){
                     const professor = response.data
-                    //console.log(professor)
                     setPNome(professor.primeiroNome)
                     setSNome(professor.segundoNome)
                     setMatricula(professor.matricula)
@@ -58,10 +57,10 @@ const EditarProfessor = () => {
         ProfessorSevice.alterProfessors({id,professor},
             (log) => {
                 console.log(log.status)
-                if(log.status == 200){
+                if(log.status === 200){
                     alert("PROFESSOR Alterado")
                     navigate("/professor/listar")
-                }else if(log.status == 403){
+                }else if(log.status === 403){
                     navigate("/")
                 }
         })

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ProfessorSevice from "../../services/ProfessorService"
 import { Link, useNavigate,useParams } from "react-router-dom";
 
-const EditarProfessor = () => {
+const EditarAluno = () => {
     const[primeiroNome,setPNome] = useState("")
     const[segundoNome,setSNome] = useState("")
     const role = "PROFESSOR"
@@ -147,4 +147,4 @@ const EditarProfessor = () => {
     )
 }
 
-export default EditarProfessor;
+export default EditarAluno;

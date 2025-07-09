@@ -31,7 +31,7 @@ const ListarProfessor = () => {
       ProfessorService.deleteProfessor(
         id,
       (response) =>{
-        let vetornovo = professores.filter(professor => professor.id != id) 
+        let vetornovo = professores.filter(professor => professor.id !== id) 
         setProfessores(vetornovo)
       })
       //navigate(0)

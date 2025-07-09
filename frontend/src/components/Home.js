@@ -81,7 +81,7 @@ const Home = () => {
                                         <li className="nav-item dropdown">
                                             <a href="/" className="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">Alunos</a>
                                             <ul className="dropdown-menu bg-dark">
-                                                <li><Link className="dropdown-item bg-dark text-white" to="/aluno/listar/">Cadastrar Aluno</Link></li>
+                                                <li><Link className="dropdown-item bg-dark text-white" to="/aluno/criar/">Cadastrar Aluno</Link></li>
                                                 <li><Link className="dropdown-item bg-dark text-white" to="/aluno/listar/">Ver Alunos</Link></li>
                                             </ul>
                                         </li>

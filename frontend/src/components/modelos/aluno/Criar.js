@@ -1,12 +1,12 @@
 import { useState } from "react";
-import ProfessorSevice from "../../services/ProfessorService";
 import { useNavigate } from "react-router-dom";
+import AlunoSevice from "../../services/AlunoService";
 
-const CriarProfessor = () =>{
+const CriarAluno = () =>{
 
     const[primeiroNome,setPNome] = useState("")
     const[segundoNome,setSNome] = useState("")
-    const role = "PROFESSOR"
+    const role = "ALUNO"
     const[matricula, setMatricula] = useState(0)
     const[email, setEmail] = useState("")
     const[senha, setSenha] = useState("")
@@ -39,13 +39,13 @@ const CriarProfessor = () =>{
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        let professor = { segundoNome: segundoNome, role:role, primeiroNome: primeiroNome, matricula: matricula, email: email, senha : senha, linkTelegram: link}
-        ProfessorSevice.postProfessors(professor,
+        let aluno = { segundoNome: segundoNome, role:role, primeiroNome: primeiroNome, matricula: matricula, email: email, senha : senha, linkTelegram: link}
+        AlunoSevice.postAlunos(aluno,
             (log) => {
                 console.log(log.status)
                 if(log.status == 200){
-                    alert("PROFESSOR ADCIONADO")
-                    navigate("/professor/listar")
+                    alert("Aluno ADCIONADO")
+                    navigate("/aluno/listar")
                 }else if(log.status == 403){
                     navigate("/")
                 }
@@ -54,7 +54,7 @@ const CriarProfessor = () =>{
     
     return (
         <div className="page-content">
-            <h1>Criar Professor</h1>
+            <h1>Criar Alunos</h1>
             <form className="form-content" onSubmit={handleSubmit}>
 
                 <div className="mb-3">
@@ -139,4 +139,4 @@ const CriarProfessor = () =>{
     )
 }
 
-export default CriarProfessor;
+export default CriarAluno;

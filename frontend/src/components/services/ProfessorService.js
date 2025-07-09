@@ -1,17 +1,17 @@
 import axios  from "axios";
+import URL from "./URL_base"
 
-const URL = "https://gestao-de-feedback-academico.onrender.com/professor/"
 
 class ProfessorSevice{
 
     static getProfessors( callback ){
-        axios.get(URL)
+        axios.get(URL+"/professor/")
         .then( response => {callback(response.data)})
         .catch(error => console.log(error));
     }
 
     static postProfessors(novo, callback){
-        axios.post(URL, novo)
+        axios.post(URL+"/professor/", novo)
         .then(response => {
             callback(response)
         })
@@ -22,7 +22,7 @@ class ProfessorSevice{
     }
 
     static deleteProfessor(id, callback){
-        axios.delete(URL+`${id}`).then((response) => {
+        axios.delete(URL+`/professor/${id}`).then((response) => {
             callback(response)
         }).catch((error) => {
             console.log(error)
@@ -36,7 +36,7 @@ class ProfessorSevice{
     }
 
     static alterProfessors({id, professor}, callback){
-        axios.put(URL+`${id}`,professor)
+        axios.put(URL+`/professor/${id}`,professor)
         .then((response) => {
             callback(response)
         })

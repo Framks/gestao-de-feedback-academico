@@ -1,26 +1,25 @@
-import ProfessorService from "../../services/ProfessorService"
+import AlunoService from "../../services/AlunoService"
 
 import {useState, useEffect} from "react"
 import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
-const ListarProfessor = () => {
+const ListarAlunos = () => {
 
-    const [professores, setProfessores] = useState([])
-    // const navigate = useNavigate()
+    const [alunos, setAlunos] = useState([])
 
   useEffect(
     () => {
-      ProfessorService
-      .getProfessors(data => setProfessores(data))
+      AlunoService
+      .getAlunos(data => setAlunos(data))
     }
     ,
     []
   )
 
-  const handleLink = (professor)  => {
-    if(professor.hasOwnProperty('linkTelegram') && professor.linkTelegram !== null){
-        return(<>{professor.linkTelegram}</>)
+  const handleLink = (aluno)  => {
+    if(aluno.hasOwnProperty('linkTelegram') && aluno.linkTelegram !== null){
+        return(<>{aluno.linkTelegram}</>)
     }else{
         return(<>Vázio</>)
     }
@@ -28,29 +27,29 @@ const ListarProfessor = () => {
 
   const handleDelete = (id) => {
     if (window.confirm(`Deseja excluir id = ${id}`)) {
-      ProfessorService.deleteProfessor(
+      AlunoService.delete(
         id,
       (response) =>{
-        let vetornovo = professores.filter(professor => professor.id != id) 
-        setProfessores(vetornovo)
+        let vetornovo = alunos.filter(aluno => aluno.id !== id) 
+        setAlunos(vetornovo)
       })
       //navigate(0)
     }
   }
 
-  const renderizarProfessores = () => {
-    const vetorResultado = professores.map(
-        (professor) => {
+  const rendereizarAlunos = () => {
+    const vetorResultado = alunos.map(
+        (aluno) => {
             return (
-                <tr key={professor.matricula}>
-                    <th scope="row">{professor.matricula}</th>
-                    <td>{professor.primeiroNome} {professor.segundoNome}</td>
-                    <td>{professor.email}</td>
-                    <td>{handleLink(professor)}</td>
+                <tr key={aluno.matricula}>
+                    <th scope="row">{aluno.matricula}</th>
+                    <td>{aluno.primeiroNome} {aluno.segundoNome}</td>
+                    <td>{aluno.email}</td>
+                    <td>{handleLink(aluno)}</td>
                     <td>
                         <div className="button-content">
                             <Link 
-                              to={`/professor/editar/${professor.id}`}
+                              to={`/aluno/editar/${aluno.id}`}
                               className="btn btn-primary"
                             >
                               Editar
@@ -58,7 +57,7 @@ const ListarProfessor = () => {
                             <button 
                               type="button" 
                               className="btn btn-danger"
-                              onClick={() => handleDelete(professor.id)}
+                              onClick={() => handleDelete(aluno.id)}
                             >
                               Apagar
                             </button>
@@ -86,7 +85,7 @@ const ListarProfessor = () => {
             </tr>
           </thead>
           <tbody>
-            {renderizarProfessores()}
+            {rendereizarAlunos()}
           </tbody>
         </table>
       </div>
@@ -94,4 +93,4 @@ const ListarProfessor = () => {
   );
 }
 
-export default ListarProfessor;
+export default ListarAlunos;

@@ -10,6 +10,8 @@ import ListarAlunos from "./components/modelos/aluno/Listar";
 import RoleProtectedRoute from "./components/services/RoleProtectedRoute"
 import Login from "./components/login/Login"
 import EditarProfessor from "./components/modelos/professor/Editar"
+import EditarAluno from "./components/modelos/aluno/Editar";
+import CriarAluno from "./components/modelos/aluno/Criar";
 
 const router = createBrowserRouter(
     [
@@ -48,15 +50,27 @@ const router = createBrowserRouter(
                     
                 },
 
-                //{path: "aluno/criar/", element:<CriarAlunos/>},
+                {
+                    path: "aluno/criar/",
+                    element:
+                    <RoleProtectedRoute allowedRoles={["PROFESSOR", "ADMIN"]}>
+                        <CriarAluno/>
+                    </RoleProtectedRoute>
+                },
                 {
                     path: "aluno/listar/",
                     element:
-                    <RoleProtectedRoute allowedRoles={["professor", "admin"]}>
+                    <RoleProtectedRoute allowedRoles={["PROFESSOR", "ADMIN"]}>
                         <ListarAlunos/>
                     </RoleProtectedRoute>
-                }
-                //{path: "aluno/editar/", element:<EditarAluno/>},
+                },
+                {
+                    path: "aluno/editar/",
+                    element:
+                        <RoleProtectedRoute allowedRoles={["PROFESSOR", "ADMIN"]}>
+                            <EditarAluno/>
+                        </RoleProtectedRoute>
+                },
 
                 //{path: "atividade/avaliacoes/", element:</>},
                 //{path: "atividade/listar/", element:</>},
