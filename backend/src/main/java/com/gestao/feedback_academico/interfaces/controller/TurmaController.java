@@ -22,7 +22,7 @@ public class TurmaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<DetalhesTurmaDto> buscarPorId(@PathVariable Long id) {
-        return  null;
+        return ResponseEntity.ok(turmaService.buscarPorId(id));
     }
 
     @PreAuthorize("hasRole(T(com.gestao.feedback_academico.domain.entity.UserRole).ADMIN.name()) OR hasRole('PROFESSOR')")
